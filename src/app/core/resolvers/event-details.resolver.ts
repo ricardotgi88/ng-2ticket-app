@@ -12,7 +12,8 @@ export class EventDetailsPreloadResolver implements Resolve<boolean> {
   private appStore: AppStore = inject(AppStore);
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
-    if (!this.appStore.appStore().selectedEvent) {
+    const selectedEvent = this.appStore.selectedEvent();
+    if (!selectedEvent || selectedEvent?.id !== route.params['id']) {
       return this.eventService.getEventById(route.params['id']).pipe(
         tap((event) => this.appStore.selectEvent(event)),
         map(() => true),

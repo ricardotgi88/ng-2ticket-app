@@ -2,11 +2,13 @@ import { Routes } from '@angular/router';
 
 import { EventDetailsPreloadResolver } from './core/resolvers/event-details.resolver';
 import { EventsPreloadResolver } from './core/resolvers/events.resolver';
+import { MainLayout } from './shared/main-layout/main-layout';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'events', pathMatch: 'full' },
   {
     path: '',
+    component: MainLayout,
     children: [
       {
         path: 'events',

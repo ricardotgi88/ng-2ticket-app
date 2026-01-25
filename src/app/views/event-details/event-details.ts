@@ -12,5 +12,5 @@ import { AppStore } from '../../core/store/app-store';
 export class EventDetails {
   readonly #appStore = inject(AppStore);
 
-  public selectedEvent = this.#appStore.appStore().selectedEvent;
+  public selectedEvent = this.#appStore.selectedEvent;
 }

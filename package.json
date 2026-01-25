@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "format": "prettier --write \"src/**/*.{ts,html,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,css,json}\"",
+    "preflight": "npm run lint:fix && npm run format && npm run build",
     "serve:ssr:ng-2ticket-app": "node dist/ng-2ticket-app/server/server.mjs"
   },
   "prettier": {
