@@ -46,5 +46,5 @@ export interface Event {
   walletCodeVisible: boolean;
   invoiceUnlockedDatetime: string | null;
   idLiga: string | null;
-  recurringPeriods: any[];
+  recurringPeriods: string[];
 }

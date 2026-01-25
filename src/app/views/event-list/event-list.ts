@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
+
 import { AppStore } from '../../core/store/app-store';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-event-list',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })
