@@ -1,10 +1,16 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/ng-2ticket-app/browser",
+  "version": 2,
+  "public": true,
+  "name": "ng-2ticket-app",
   "rewrites": [
     {
-      "source": "/:path((?!_next).*)",
-      "destination": "/index.html"
+      "source": "/(.*)",
+      "destination": "/api"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/ng-2ticket-app/**"
+    }
+  }
 }
