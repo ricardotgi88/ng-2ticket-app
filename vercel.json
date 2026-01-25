@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/ng-2ticket-app/browser",
+  "rewrites": [
+    {
+      "source": "/:path((?!_next).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
