@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+
+import { EventDetailsPreloadResolver } from './core/resolvers/event-details.resolver';
 import { EventsPreloadResolver } from './core/resolvers/events.resolver';
 
 export const routes: Routes = [
@@ -18,6 +20,9 @@ export const routes: Routes = [
           },
           {
             path: ':id',
+            resolve: {
+              preloadEventDetails: EventDetailsPreloadResolver,
+            },
             loadComponent: () =>
               import('./views/event-details/event-details').then((m) => m.EventDetails),
           },
