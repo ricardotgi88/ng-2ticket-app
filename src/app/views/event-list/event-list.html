@@ -1,5 +1,6 @@
-@for (event of events(); track event.id) {
-  <pre>{{ event.name }}</pre>
-  <pre>{{ event.name_en }}</pre>
-  <pre>{{ event.name_es }}</pre>
-}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
+  @for (event of events(); track event.id) {
+    <app-event-info-card [event]="event" />
+    <app-event-info-card [event]="event" />
+  }
+</div>
