@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppStore } from '../store/app-store';
+
 import { Event } from '../interfaces/event.interface';
+import { AppStore } from '../store/app-store';
 
 @Injectable({
   providedIn: 'root',

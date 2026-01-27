@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Event } from '../../../core/interfaces/event.interface';
 import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Event } from '../../../core/interfaces/event.interface';
 
 @Component({
   selector: 'app-event-info-card',

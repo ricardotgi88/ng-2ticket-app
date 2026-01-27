@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Event } from '../../../core/interfaces/event.interface';
 import { DatePipe } from '@angular/common';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideMapPin } from '@ng-icons/lucide';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+
+import { Event } from '../../../core/interfaces/event.interface';
 
 @Component({
   selector: 'app-artist-bio',
