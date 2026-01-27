@@ -1,4 +1,5 @@
-import { Directive, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
+
 import { injectHlmIconConfig } from './hlm-icon.token';
 
 export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'none' | (Record<never, never> & string);

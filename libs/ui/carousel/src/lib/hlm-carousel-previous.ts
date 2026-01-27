@@ -4,6 +4,7 @@ import { lucideArrowLeft } from '@ng-icons/lucide';
 import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlm } from '@spartan-ng/helm/utils';
+
 import { HlmCarousel } from './hlm-carousel';
 
 @Component({

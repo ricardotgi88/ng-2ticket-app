@@ -4,6 +4,7 @@ import { booleanAttribute, computed, Directive, effect, inject, input } from '@a
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
+
 import { injectHlmMenubarConfig } from './hlm-menubar-token';
 
 @Directive({

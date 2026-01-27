@@ -1,5 +1,6 @@
 import { Directive, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
+
 import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Directive({

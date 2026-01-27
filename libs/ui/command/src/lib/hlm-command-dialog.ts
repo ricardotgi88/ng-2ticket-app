@@ -1,4 +1,4 @@
-import { Directive, ElementRef, afterNextRender, contentChild } from '@angular/core';
+import { afterNextRender, contentChild,Directive, ElementRef } from '@angular/core';
 import { BrnCommandSearchInputToken } from '@spartan-ng/brain/command';
 import { classes } from '@spartan-ng/helm/utils';
 

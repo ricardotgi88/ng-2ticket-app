@@ -23,6 +23,7 @@ const ignorePatterns = [
   'dist/**',
   'node_modules/**',
   '.vscode/**',
+  'libs/ui/**',
   'coverage/**',
   'package-lock.json',
   'pnpm-lock.yaml ',

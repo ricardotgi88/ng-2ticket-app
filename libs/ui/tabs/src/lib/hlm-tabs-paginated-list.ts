@@ -2,9 +2,9 @@ import { CdkObserveContent } from '@angular/cdk/observers';
 import {
 	ChangeDetectionStrategy,
 	Component,
-	type ElementRef,
 	computed,
 	contentChildren,
+	type ElementRef,
 	input,
 	viewChild,
 } from '@angular/core';
@@ -17,6 +17,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import type { Observable } from 'rxjs';
+
 import { listVariants } from './hlm-tabs-list';
 
 @Component({
@@ -87,10 +88,10 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 	public readonly nextPaginator = viewChild.required<ElementRef<HTMLElement>>('nextPaginator');
 	public readonly previousPaginator = viewChild.required<ElementRef<HTMLElement>>('previousPaginator');
 
-	public readonly tabListClass = input<ClassValue>('', { alias: 'tabListClass' });
+	public readonly tabListClass = input<ClassValue>('');
 	protected readonly _tabListClass = computed(() => hlm(listVariants(), this.tabListClass()));
 
-	public readonly paginationButtonClass = input<ClassValue>('', { alias: 'paginationButtonClass' });
+	public readonly paginationButtonClass = input<ClassValue>('');
 	protected readonly _paginationButtonClass = computed(() =>
 		hlm(
 			'relative z-[2] select-none disabled:cursor-default',

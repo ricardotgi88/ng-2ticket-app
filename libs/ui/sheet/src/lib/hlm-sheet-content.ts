@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Renderer2, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, Renderer2, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
+
 import { HlmSheetClose } from './hlm-sheet-close';
 
 export const sheetVariants = cva(

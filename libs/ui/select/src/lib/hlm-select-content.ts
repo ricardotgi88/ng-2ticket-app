@@ -1,5 +1,5 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { Directive, booleanAttribute, input } from '@angular/core';
+import { booleanAttribute, Directive, input } from '@angular/core';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 

@@ -3,6 +3,7 @@ import { Directive, input, numberAttribute } from '@angular/core';
 import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';
 import { ToggleVariants } from '@spartan-ng/helm/toggle';
 import { classes } from '@spartan-ng/helm/utils';
+
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 
 @Directive({

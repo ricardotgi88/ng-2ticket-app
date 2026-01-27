@@ -1,7 +1,8 @@
 import { computed, Directive, input } from '@angular/core';
 import { BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
-import { toggleVariants, ToggleVariants } from '@spartan-ng/helm/toggle';
+import { ToggleVariants,toggleVariants } from '@spartan-ng/helm/toggle';
 import { classes } from '@spartan-ng/helm/utils';
+
 import { injectHlmToggleGroup } from './hlm-toggle-group.token';
 
 @Directive({

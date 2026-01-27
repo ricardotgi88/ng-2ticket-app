@@ -4,6 +4,7 @@ import { BrnSheetImports } from '@spartan-ng/brain/sheet';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
+
 import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 

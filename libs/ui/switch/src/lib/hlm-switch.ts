@@ -15,6 +15,7 @@ import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitch, BrnSwitchThumb } from '@spartan-ng/brain/switch';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
+
 import { HlmSwitchThumb } from './hlm-switch-thumb';
 
 export const HLM_SWITCH_VALUE_ACCESSOR = {

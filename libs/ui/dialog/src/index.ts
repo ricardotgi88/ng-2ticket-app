@@ -9,6 +9,7 @@ import { HlmDialogTitle } from './lib/hlm-dialog-title';
 import { HlmDialogTrigger } from './lib/hlm-dialog-trigger';
 
 export * from './lib/hlm-dialog';
+export * from './lib/hlm-dialog.service';
 export * from './lib/hlm-dialog-close';
 export * from './lib/hlm-dialog-content';
 export * from './lib/hlm-dialog-description';
@@ -17,7 +18,6 @@ export * from './lib/hlm-dialog-header';
 export * from './lib/hlm-dialog-overlay';
 export * from './lib/hlm-dialog-title';
 export * from './lib/hlm-dialog-trigger';
-export * from './lib/hlm-dialog.service';
 
 export const HlmDialogImports = [
 	HlmDialog,

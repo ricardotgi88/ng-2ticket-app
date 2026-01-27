@@ -1,6 +1,7 @@
 import {
 	computed,
 	Directive,
+	type DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -9,7 +10,6 @@ import {
 	linkedSignal,
 	signal,
 	untracked,
-	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';

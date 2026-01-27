@@ -1,8 +1,8 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	input,
 	model,
@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+
 import { HlmPagination } from './hlm-pagination';
 import { HlmPaginationContent } from './hlm-pagination-content';
 import { HlmPaginationEllipsis } from './hlm-pagination-ellipsis';

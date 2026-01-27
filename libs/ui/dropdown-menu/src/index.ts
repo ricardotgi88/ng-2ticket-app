@@ -10,7 +10,6 @@ import { HlmDropdownMenuRadioIndicator } from './lib/hlm-dropdown-menu-radio-ind
 import { HlmDropdownMenuSeparator } from './lib/hlm-dropdown-menu-separator';
 import { HlmDropdownMenuShortcut } from './lib/hlm-dropdown-menu-shortcut';
 import { HlmDropdownMenuSub } from './lib/hlm-dropdown-menu-sub';
-
 import { HlmDropdownMenuTrigger } from './lib/hlm-dropdown-menu-trigger';
 
 export * from './lib/hlm-dropdown-menu';

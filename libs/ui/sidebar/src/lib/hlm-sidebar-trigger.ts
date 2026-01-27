@@ -3,10 +3,11 @@ import { provideIcons } from '@ng-icons/core';
 import { lucidePanelLeft } from '@ng-icons/lucide';
 import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
+	 
 	selector: 'button[hlmSidebarTrigger]',
 	imports: [HlmIconImports],
 	providers: [provideIcons({ lucidePanelLeft }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon' })],

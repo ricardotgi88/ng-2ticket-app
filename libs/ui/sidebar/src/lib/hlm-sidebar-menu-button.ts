@@ -4,6 +4,7 @@ import { BrnTooltipTrigger, provideBrnTooltipDefaultOptions } from '@spartan-ng/
 import { DEFAULT_TOOLTIP_CONTENT_CLASSES } from '@spartan-ng/helm/tooltip';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
+
 import { HlmSidebarService } from './hlm-sidebar.service';
 
 const sidebarMenuButtonVariants = cva(

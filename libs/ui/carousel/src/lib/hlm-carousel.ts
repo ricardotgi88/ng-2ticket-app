@@ -1,10 +1,10 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	type InputSignal,
-	type Signal,
 	computed,
 	input,
+	type InputSignal,
+	type Signal,
 	signal,
 	viewChild,
 } from '@angular/core';

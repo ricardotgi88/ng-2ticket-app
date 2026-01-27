@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Event } from '../../core/interfaces/event.interface';
 import { RouteService } from '../../core/services/route.service';

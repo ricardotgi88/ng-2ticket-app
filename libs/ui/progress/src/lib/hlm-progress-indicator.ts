@@ -1,4 +1,4 @@
-import { Directive, computed } from '@angular/core';
+import { computed,Directive } from '@angular/core';
 import { BrnProgressIndicator, injectBrnProgress } from '@spartan-ng/brain/progress';
 import { classes } from '@spartan-ng/helm/utils';
 

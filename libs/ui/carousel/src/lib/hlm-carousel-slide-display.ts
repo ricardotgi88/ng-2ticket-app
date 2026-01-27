@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import type { ClassValue } from 'clsx';
+
 import { HlmCarousel } from './hlm-carousel';
 
 @Component({
