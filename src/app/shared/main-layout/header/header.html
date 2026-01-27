@@ -1,1 +1,20 @@
-<p>header works!</p>
+<div
+  class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky top-0 bg-white/50 backdrop-blur-md"
+>
+  <button hlmBtn variant="secondary" class="rounded-full mr-auto" (click)="onGoBack()">
+    <ng-icon hlm size="sm" name="lucideArrowLeft" />
+    <span class="font-semibold"> Ver Eventos </span>
+  </button>
+
+  <button hlmBtn size="icon" variant="outline" class="rounded-full">
+    <ng-icon hlm size="sm" name="lucideUser2" />
+  </button>
+  <button hlmBtn class="rounded-full">
+    <ng-icon hlm size="sm" name="lucideShoppingCart" />
+    15,00$
+  </button>
+  <button hlmBtn variant="outline" class="rounded-full">
+    <ng-icon hlm size="sm" name="lucideFlag" />
+    PT
+  </button>
+</div>

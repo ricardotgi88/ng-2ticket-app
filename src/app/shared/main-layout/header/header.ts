@@ -1,9 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowLeft, lucideFlag, lucideShoppingCart, lucideUser2 } from '@ng-icons/lucide';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { RouteService } from '../../../core/services/route.service';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [HlmButtonImports, NgIcon, HlmIconImports],
+  providers: [provideIcons({ lucideArrowLeft, lucideUser2, lucideShoppingCart, lucideFlag })],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+  readonly #routeService = inject(RouteService);
+
+  onGoBack() {
+    this.#routeService.goToEvents();
+  }
+}

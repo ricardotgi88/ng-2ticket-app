@@ -1,1 +1,16 @@
-<p>checkout-bar works!</p>
+<div
+  class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky bottom-0 bg-white/50 backdrop-blur-md border-t border-gray-200"
+>
+  <button hlmBtn variant="outline" class="rounded-full mr-auto" (click)="onGoBack()">
+    <ng-icon hlm size="sm" name="lucideArrowLeft" />
+    <span class="font-semibold"> Voltar </span>
+  </button>
+  <div class="flex flex-col items-center mr-4">
+    <span class="text-xs">
+      <ng-icon hlm size="sm" name="lucideShoppingCart" />
+      15,00$
+    </span>
+    <span class="text-xs"> 2 Bilhetes </span>
+  </div>
+  <button hlmBtn variant="default" class="rounded-full">Finalizar Compra</button>
+</div>
