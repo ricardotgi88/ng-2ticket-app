@@ -7,11 +7,11 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 import { AppStore } from '../../core/store/app-store';
 import { ArtistBio } from '../../shared/components/artist-bio/artist-bio';
-import { TicketSelectorCard } from '../../shared/components/ticket-selector-card/ticket-selector-card';
+import { TicketList } from '../../shared/components/ticket-list/ticket-list';
 
 @Component({
   selector: 'app-event-details',
-  imports: [DatePipe, NgIcon, HlmButtonImports, HlmIconImports, ArtistBio, TicketSelectorCard],
+  imports: [DatePipe, NgIcon, HlmButtonImports, HlmIconImports, ArtistBio, TicketList],
   providers: [provideIcons({ lucideCalendar, lucideMapPin, lucideChevronDown })],
   templateUrl: './event-details.html',
   styleUrl: './event-details.css',

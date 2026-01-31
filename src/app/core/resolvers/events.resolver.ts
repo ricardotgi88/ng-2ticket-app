@@ -1,28 +1,23 @@
 import { inject, Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
-import { EventsDataService } from '../data/events.data.service';
-import { AppStore } from '../store/app-store';
+import { EventsService } from '../services/events.service';
 
 @Injectable({ providedIn: 'root' })
 export class EventsPreloadResolver implements Resolve<boolean> {
-  private router: Router = inject(Router);
-  private eventService: EventsDataService = inject(EventsDataService);
-  private appStore: AppStore = inject(AppStore);
+  #router: Router = inject(Router);
+  #eventsService: EventsService = inject(EventsService);
 
   resolve(): Observable<boolean> {
-    if (!this.appStore.hasEvents()) {
-      return this.eventService.getEvents().pipe(
-        tap((events) => this.appStore.setEvents(events)),
-        map(() => true),
-        catchError(() => {
-          this.router.navigate(['/erro']);
-          return of(false);
-        }),
-      );
-    }
+    return this.#eventsService.resolveData().pipe(
+      map((result) => {
+        if (!result) {
+          this.#router.navigate(['/error']);
+        }
 
-    return of(true);
+        return result;
+      }),
+    );
   }
 }

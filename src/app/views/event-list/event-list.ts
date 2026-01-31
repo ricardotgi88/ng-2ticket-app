@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { Event } from '../../core/interfaces/event.interface';
+import { Event } from '../../core/data/models/event.interface';
 import { RouteService } from '../../core/services/route.service';
 import { AppStore } from '../../core/store/app-store';
 import { EventInfoCard } from '../../shared/components/event-info-card/event-info-card';

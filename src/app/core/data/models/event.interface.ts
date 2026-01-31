@@ -1,6 +1,7 @@
+// https://api.dev.2ticket.pt/events/apikey/d1b53c7d-22c4-4b75-92dd-c8966317fbba/list/public
+import { EventTicketType } from './event-ticket-type.interface';
 import { Participant } from './participant.interface';
 import { Place } from './place.interface';
-import { TicketType } from './ticket-type.interface';
 
 export interface Event {
   id: number;
@@ -36,7 +37,7 @@ export interface Event {
   eventTypefilename: string;
   places: Place[];
   participants: Participant[];
-  ticketTypes: TicketType[];
+  ticketTypes: EventTicketType[];
   ready: boolean;
   readyForInvites: boolean;
   active: boolean;

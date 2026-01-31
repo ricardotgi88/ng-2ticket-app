@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Event } from '../interfaces/event.interface';
+import { Event } from '../data/models/event.interface';
 import { AppStore } from '../store/app-store';
 
 @Injectable({

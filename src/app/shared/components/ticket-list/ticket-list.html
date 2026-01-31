@@ -1,0 +1,7 @@
+@if (priceMap; as priceMap) {
+  @if (!isLoading()) {
+    @for (priceMapItem of priceMap.mapping; track priceMapItem.id) {
+      <app-ticket-selector-card [priceMapItem]="priceMapItem" [priceMap]="priceMap" />
+    }
+  }
+}

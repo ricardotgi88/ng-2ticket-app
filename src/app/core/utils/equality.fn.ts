@@ -1,5 +1,5 @@
+import { Event } from '../data/models/event.interface';
 import { Cart } from '../interfaces/cart.interface';
-import { Event } from '../interfaces/event.interface';
 
 /**
  * Custom equality function for Event comparison.

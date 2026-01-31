@@ -4,7 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideMapPin } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
-import { Event } from '../../../core/interfaces/event.interface';
+import { Event } from '../../../core/data/models/event.interface';
 
 @Component({
   selector: 'app-artist-bio',

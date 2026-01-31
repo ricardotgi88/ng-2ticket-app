@@ -4,52 +4,48 @@
       class="basis-full md:basis-1/3"
       [event]="selectedEventwithValue"
     ></app-artist-bio>
-    <div class="flex flex-col gap-4 basis-full md:basis-2/3">
-      <h1 class="text-3xl font-bold">{{ selectedEventwithValue.name }}</h1>
 
-      <div class="flex">
-        <div class="flex flex-col gap-1 mr-8">
-          <p class="text-lg font-semibold">
-            <ng-icon hlm size="sm" name="lucideCalendar" />
-            {{ selectedEventwithValue.eventTime | date: 'longDate' }}
-          </p>
-          <p>Começa em 4 dias</p>
+    @for (place of selectedEventwithValue.places; track place.id) {
+      <div class="flex flex-col gap-4 basis-full md:basis-2/3">
+        <h1 class="text-3xl font-bold">{{ selectedEventwithValue.name }}</h1>
+
+        <div class="flex">
+          <div class="flex flex-col gap-1 mr-8">
+            <p class="text-lg font-semibold">
+              <ng-icon hlm size="sm" name="lucideCalendar" />
+              {{ selectedEventwithValue.eventTime | date: 'longDate' }}
+            </p>
+            <p>Começa em 4 dias</p>
+          </div>
+          <div class="flex flex-col gap-1">
+            <p class="text-lg font-semibold">
+              <ng-icon hlm size="sm" name="lucideMapPin" />
+              {{ place.placeName }}
+            </p>
+          </div>
         </div>
-        <div class="flex flex-col gap-1">
-          <p class="text-lg font-semibold">
-            <ng-icon hlm size="sm" name="lucideMapPin" />
-            {{ selectedEventwithValue.places![0]?.placeName }}
-          </p>
-        </div>
+
+        <h2 class="text-xl font-bold">Bilhetes</h2>
+        <app-ticket-list [priceMap]="place.priceMap" />
+        <h2 class="text-xl font-bold">Sobre</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis odio massa. Nulla
+          lobortis ac est a sollicitudin. Pellentesque condimentum, ex non posuere congue, eros diam
+          pretium ante, sed viverra lacus arcu eu velit. Nunc pellentesque posuere aliquet.
+        </p>
+        <button hlmBtn variant="link" class="has-[>ng-icon]:px-0 mr-auto">
+          <span class="font-semibold"> Ler Mais </span>
+          <ng-icon hlm size="sm" name="lucideChevronDown" />
+        </button>
+        <h2 class="text-xl font-bold">Localização</h2>
+        <p class="text-sm text-gray-500">
+          {{ selectedEventwithValue.places![0]?.placeName }}
+        </p>
+        <div class="bg-[url('assets/img/maps.png')] bg-cover bg-center" style="height: 300px"></div>
+
+        <h2 class="text-xl font-bold">Promotor</h2>
+        <p class="text-sm text-gray-500">Feira de São Mateus</p>
       </div>
-
-      <h2 class="text-xl font-bold">Bilhetes</h2>
-      <app-ticket-selector-card />
-      <h2 class="text-xl font-bold">Sobre</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis odio massa. Nulla
-        lobortis ac est a sollicitudin. Pellentesque condimentum, ex non posuere congue, eros diam
-        pretium ante, sed viverra lacus arcu eu velit. Nunc pellentesque posuere aliquet. Vestibulum
-        pharetra, metus sed scelerisque viverra, magna elit vulputate nulla, congue pretium velit
-        enim id ligula. Vivamus a malesuada massa. Praesent in interdum justo. Ut sollicitudin massa
-        ipsum, ut volutpat libero consectetur sed. Ut scelerisque lacinia volutpat. Cras risus arcu,
-        luctus quis erat id, mollis volutpat lectus. Nunc porta ac erat a suscipit. Fusce laoreet
-        consectetur tortor, a maximus nulla scelerisque non. Fusce at eros aliquam, laoreet lacus
-        vel, mattis mi. Morbi ut augue ex. Integer at velit commodo, vestibulum sapien a, ultrices
-        mauris. Nam ante mi, faucibus eget libero vitae, eleifend dapibus quam.
-      </p>
-      <button hlmBtn variant="link" class="has-[>ng-icon]:px-0 mr-auto">
-        <span class="font-semibold"> Ler Mais </span>
-        <ng-icon hlm size="sm" name="lucideChevronDown" />
-      </button>
-      <h2 class="text-xl font-bold">Localização</h2>
-      <p class="text-sm text-gray-500">
-        {{ selectedEventwithValue.places![0]?.placeName }}
-      </p>
-      <div class="bg-[url('assets/img/maps.png')] bg-cover bg-center" style="height: 300px"></div>
-
-      <h2 class="text-xl font-bold">Promotor</h2>
-      <p class="text-sm text-gray-500">Feira de São Mateus</p>
-    </div>
+    }
   </div>
 }

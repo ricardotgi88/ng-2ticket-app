@@ -1,22 +1,24 @@
-<section class="w-full" hlmCard>
-  <div hlmCardHeader>
-    <div hlmCardTitle class="flex items-center gap-2">
-      <h3>1 lote</h3>
-      <span hlmBadge class="dark:text-bg-red-300 bg-red-50 text-red-700 dark:bg-red-950"
-        >A esgotar</span
-      >
+@if (priceMap?.active) {
+  <section class="w-full" hlmCard>
+    <div hlmCardHeader>
+      <div hlmCardTitle class="flex items-center gap-2">
+        <h3>{{ priceMapItem?.ticketType?.name }}</h3>
+        <span hlmBadge class="dark:text-bg-red-300 bg-red-50 text-red-700 dark:bg-red-950"
+          >A esgotar</span
+        >
+      </div>
+      <p hlmCardDescription>
+        Bilhetes limitados do 1º lote - garante já a tua entrada antes que esgote!
+      </p>
     </div>
-    <p hlmCardDescription>
-      Bilhetes limitados do 1º lote - garante já a tua entrada antes que esgote!
-    </p>
-  </div>
 
-  <div hlmCardFooter class="flex gap-2 justify-between items-center border-t">
-    <span> 7,50$ </span>
-    <div class="flex items-center gap-2">
-      <button hlmBtn size="icon" variant="outline" class="rounded-full">-</button>
-      <span>2</span>
-      <button hlmBtn size="icon" type="button" class="rounded-full">+</button>
+    <div hlmCardFooter class="flex gap-2 justify-between items-center border-t">
+      <span> {{ priceMapItem?.price | currency: 'EUR' : 'symbol-narrow' }} </span>
+      <div class="flex items-center gap-2">
+        <button hlmBtn size="icon" variant="outline" class="rounded-full">-</button>
+        <span>2</span>
+        <button hlmBtn size="icon" type="button" class="rounded-full">+</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+}

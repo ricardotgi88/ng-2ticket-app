@@ -1,4 +1,4 @@
-import { Ticket } from './ticket.interface';
+import { Ticket } from './cart-ticket.interface';
 
 export interface Cart {
   total: number;

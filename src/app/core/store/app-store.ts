@@ -1,35 +1,41 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { computed } from '@angular/core';
 
+import { Event } from '../data/models/event.interface';
+import { TicketType } from '../data/models/ticket-type.interface';
 import { Cart } from '../interfaces/cart.interface';
-import { Event } from '../interfaces/event.interface';
-import { Ticket } from '../interfaces/ticket.interface';
-import { cartEquality, eventEquality, eventsEquality } from '../utils/equality.fn';
+import { Ticket } from '../interfaces/cart-ticket.interface';
+
+export enum Languages {
+  EN = 'en',
+  ES = 'es',
+  PT = 'pt',
+}
 
 export interface AppData {
   events: Event[];
   selectedEvent: Event | null;
+  ticketTypes: TicketType[];
   cart: Cart;
 }
 
 export interface AppState {
   isLoading: boolean;
   error: string | null;
-  language: 'en' | 'es' | 'pt';
-  isDarkMode: boolean;
+  language: Languages;
 }
 
 const initialAppData: AppData = {
   events: [],
   selectedEvent: null,
+  ticketTypes: [],
   cart: { total: 0, tickets: [] },
 };
 
 const initialAppState: AppState = {
   isLoading: false,
   error: null,
-  language: 'en',
-  isDarkMode: false,
+  language: Languages.EN,
 };
 
 @Injectable({
@@ -37,17 +43,15 @@ const initialAppState: AppState = {
 })
 export class AppStore {
   public appData: WritableSignal<AppData> = signal(initialAppData);
-
   public appState: WritableSignal<AppState> = signal(initialAppState);
 
-  selectedEvent = computed(() => this.appData().selectedEvent, { equal: eventEquality });
-  events = computed(() => this.appData().events, { equal: eventsEquality });
-  cart = computed(() => this.appData().cart, { equal: cartEquality });
-
-  eventCount = computed(() => this.appData().events.length);
+  selectedEvent = computed(() => this.appData().selectedEvent);
+  ticketTypes = computed(() => this.appData().ticketTypes);
   hasEvents = computed(() => this.appData().events.length > 0);
-  cartTotal = computed(() => this.appData().cart.total);
-  cartItemCount = computed(() => this.appData().cart.tickets.length);
+
+  events = computed(() => this.appData().events);
+
+  cart = computed(() => this.appData().cart);
 
   // Data Mutations
 
@@ -59,8 +63,47 @@ export class AppStore {
     this.appData.set({ ...this.appData(), selectedEvent: event });
   }
 
+  setTicketTypes(ticketTypes: TicketType[]): void {
+    this.appData.set({ ...this.appData(), ticketTypes });
+  }
+
+  enrichEvent(event: Event): void {
+    const events = this.appData().events.map((e) => (e.id === event.id ? event : e));
+
+    const selectedEvent =
+      this.appData().selectedEvent?.id === event.id ? event : this.appData().selectedEvent;
+
+    this.appData.update((currentData) => ({ ...currentData, events, selectedEvent }));
+  }
+
+  enrichSelectedEvent(selectedEvent: Event): void {
+    const events = this.appData().events.map((e) =>
+      e.id === selectedEvent.id ? selectedEvent : e,
+    );
+
+    this.appData.update((currentData) => ({ ...currentData, events, selectedEvent }));
+  }
+
   clearSelectedEvent(): void {
     this.appData.set({ ...this.appData(), selectedEvent: null });
+  }
+
+  // State Mutations
+
+  setLoading(isLoading: boolean): void {
+    this.appState.set({ ...this.appState(), isLoading });
+  }
+
+  setError(error: string | null): void {
+    this.appState.set({ ...this.appState(), error });
+  }
+
+  clearError(): void {
+    this.appState.set({ ...this.appState(), error: null });
+  }
+
+  setLanguage(language: Languages): void {
+    this.appState.set({ ...this.appState(), language });
   }
 
   addTicketToCart(ticket: Ticket): void {
@@ -116,31 +159,5 @@ export class AppStore {
       ...this.appData(),
       cart: { tickets: updatedTickets, total: updatedTotal },
     });
-  }
-
-  // State Mutations
-
-  setLoading(isLoading: boolean): void {
-    this.appState.set({ ...this.appState(), isLoading });
-  }
-
-  setError(error: string | null): void {
-    this.appState.set({ ...this.appState(), error });
-  }
-
-  clearError(): void {
-    this.appState.set({ ...this.appState(), error: null });
-  }
-
-  setLanguage(language: 'en' | 'es' | 'pt'): void {
-    this.appState.set({ ...this.appState(), language });
-  }
-
-  toggleDarkMode(): void {
-    this.appState.update((state) => ({ ...state, isDarkMode: !state.isDarkMode }));
-  }
-
-  setDarkMode(isDarkMode: boolean): void {
-    this.appState.set({ ...this.appState(), isDarkMode });
   }
 }
