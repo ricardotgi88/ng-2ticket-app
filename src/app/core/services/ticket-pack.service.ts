@@ -1,10 +1,10 @@
 import { inject, Injectable, untracked } from '@angular/core';
-import { AppStore } from '../store/app-store';
-import { TicketPackDataService } from '../../api/services/ticket-pack.data.service';
-import { Observable, of, forkJoin, catchError, finalize } from 'rxjs';
-import { PriceMap } from '../../api/models/price-map.interface';
-import { TicketPack } from '../../api/models/ticket-pack.interface';
+import { catchError, finalize, Observable, of } from 'rxjs';
+
 import { Event } from '../../api/models/event.interface';
+import { TicketPack } from '../../api/models/ticket-pack.interface';
+import { TicketPackDataService } from '../../api/services/ticket-pack.data.service';
+import { AppStore } from '../store/app-store';
 
 @Injectable({
   providedIn: 'root',

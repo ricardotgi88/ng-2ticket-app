@@ -1,8 +1,8 @@
 import { inject, Injectable, untracked } from '@angular/core';
 import { catchError, finalize, map, Observable, of, take, tap } from 'rxjs';
 
-import { EventsDataService } from '../../api/services/events.data.service';
 import { Event } from '../../api/models/event.interface';
+import { EventsDataService } from '../../api/services/events.data.service';
 import { AppStore } from '../store/app-store';
 import { PriceMapService } from './price-map.service';
 import { TicketPackService } from './ticket-pack.service';

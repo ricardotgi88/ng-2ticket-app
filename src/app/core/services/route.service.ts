@@ -2,8 +2,8 @@ import { computed, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Event } from '../../api/models/event.interface';
-import { AppStore } from '../store/app-store';
 import { AppPages } from '../enums/app-pages.enum';
+import { AppStore } from '../store/app-store';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class RouteService {
   readonly #router = inject(Router);
 
   currentPage = computed(() => {
-    const lastNavigation = this.#router.lastSuccessfulNavigation()?.extractedUrl;
+    this.#router.lastSuccessfulNavigation();
 
     return this.#resolveCurrentPage(this.#router.url);
   });

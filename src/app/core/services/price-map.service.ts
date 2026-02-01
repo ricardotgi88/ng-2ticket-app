@@ -1,9 +1,10 @@
 import { inject, Injectable, untracked } from '@angular/core';
+import { catchError, finalize, forkJoin, Observable, of } from 'rxjs';
+
 import { Event } from '../../api/models/event.interface';
-import { Observable, of, forkJoin, map, catchError, finalize } from 'rxjs';
-import { AppStore } from '../store/app-store';
-import { PriceMapDataService } from '../../api/services/price-maps.data.service';
 import { PriceMap } from '../../api/models/price-map.interface';
+import { PriceMapDataService } from '../../api/services/price-maps.data.service';
+import { AppStore } from '../store/app-store';
 
 @Injectable({
   providedIn: 'root',

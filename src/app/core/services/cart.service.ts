@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
+
 import { TicketTypeEnum } from '../enums/ticket-type.enum';
-import { AppStore } from '../store/app-store';
-import { OperationTypeEnum } from '../enums/operation-type.enum';
 import { CartTicket } from '../interfaces/cart-ticket.interface';
+import { AppStore } from '../store/app-store';
 
 @Injectable({
   providedIn: 'root',

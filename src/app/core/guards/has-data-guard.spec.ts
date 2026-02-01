@@ -4,8 +4,8 @@ import { CanActivateFn } from '@angular/router';
 import { hasDataGuard } from './has-data-guard';
 
 describe('hasDataGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => hasDataGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => hasDataGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

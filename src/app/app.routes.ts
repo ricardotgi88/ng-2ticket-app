@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
+import { hasDataGuard } from './core/guards/has-data-guard';
 import { EventDetailsPreloadResolver } from './core/resolvers/event-details.resolver';
 import { EventsPreloadResolver } from './core/resolvers/events.resolver';
 import { MainLayout } from './shared/main-layout/main-layout';
-import { hasDataGuard } from './core/guards/has-data-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'events', pathMatch: 'full' },

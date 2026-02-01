@@ -8,8 +8,6 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 
-import { PriceMap } from '../../../api/models/price-map.interface';
-import { PriceMapItem } from '../../../api/models/price-map-item.interface';
 import { CartTicket } from '../../../core/interfaces/cart-ticket.interface';
 
 @Component({

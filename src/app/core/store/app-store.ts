@@ -4,7 +4,6 @@ import { computed } from '@angular/core';
 import { Event } from '../../api/models/event.interface';
 import { TicketType } from '../../api/models/ticket-type.interface';
 import { Cart } from '../interfaces/cart.interface';
-import { CartTicket } from '../interfaces/cart-ticket.interface';
 
 export enum Languages {
   EN = 'en',

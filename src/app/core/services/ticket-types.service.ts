@@ -2,13 +2,10 @@ import { inject, Injectable, signal } from '@angular/core';
 import { finalize, Observable, of, tap } from 'rxjs';
 
 import { Event } from '../../api/models/event.interface';
-import { PriceMap } from '../../api/models/price-map.interface';
+import { Place } from '../../api/models/place.interface';
 import { TicketType } from '../../api/models/ticket-type.interface';
 import { TicketTypeDataService } from '../../api/services/ticket-type.data.service';
 import { AppStore } from '../store/app-store';
-import { TicketPack } from '../../api/models/ticket-pack.interface';
-import { Place } from '../../api/models/place.interface';
-import { PriceMapItem } from '../../api/models/price-map-item.interface';
 
 type TicketRef = { ticketTypeId: number; ticketType?: TicketType };
 
@@ -55,7 +52,7 @@ export class TicketTypesService {
   }
 
   #enrichEventWithTicketTypes(ticketTypes: TicketType[], event: Event): void {
-    let enrichedPlaces: Place[] = [];
+    const enrichedPlaces: Place[] = [];
 
     for (const place of event.places || []) {
       const hydratedMapping = this.#hidrateTicketType(place.priceMap?.mapping, ticketTypes);
@@ -64,7 +61,7 @@ export class TicketTypesService {
         ? this.#hidrateTicketType(place.ticketPacks, ticketTypes)
         : null;
 
-      let enrichedPlace: Place = {
+      const enrichedPlace: Place = {
         ...place,
         priceMap: {
           ...place.priceMap,
