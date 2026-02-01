@@ -1,24 +1,44 @@
-@if (priceMap?.active) {
-  <section class="w-full" hlmCard>
-    <div hlmCardHeader>
-      <div hlmCardTitle class="flex items-center gap-2">
-        <h3>{{ priceMapItem?.ticketType?.name }}</h3>
+<section class="w-full" hlmCard>
+  <div hlmCardHeader>
+    <div hlmCardTitle class="flex items-center gap-2">
+      <h3>{{ name }}</h3>
+      @if (remainingTickets > 0 && remainingTickets < 50) {
         <span hlmBadge class="dark:text-bg-red-300 bg-red-50 text-red-700 dark:bg-red-950"
           >A esgotar</span
         >
-      </div>
+      }
+    </div>
+    @if (description) {
       <p hlmCardDescription>
-        Bilhetes limitados do 1º lote - garante já a tua entrada antes que esgote!
+        {{ description }}
       </p>
-    </div>
+    }
+  </div>
 
-    <div hlmCardFooter class="flex gap-2 justify-between items-center border-t">
-      <span> {{ priceMapItem?.price | currency: 'EUR' : 'symbol-narrow' }} </span>
-      <div class="flex items-center gap-2">
-        <button hlmBtn size="icon" variant="outline" class="rounded-full">-</button>
-        <span>2</span>
-        <button hlmBtn size="icon" type="button" class="rounded-full">+</button>
-      </div>
+  <div hlmCardFooter class="flex gap-2 justify-between items-center border-t">
+    <span> {{ price | currency: 'EUR' : 'symbol-narrow' }} </span>
+    <div class="flex items-center gap-2">
+      <button
+        hlmBtn
+        size="icon"
+        variant="outline"
+        class="rounded-full"
+        (click)="onRemove()"
+        [disabled]="selected <= 0"
+      >
+        -
+      </button>
+      <span>{{ selected }}</span>
+      <button
+        hlmBtn
+        size="icon"
+        type="button"
+        class="rounded-full"
+        (click)="onAdd()"
+        [disabled]="maxSelection > 0 && selected >= maxSelection"
+      >
+        +
+      </button>
     </div>
-  </section>
-}
+  </div>
+</section>

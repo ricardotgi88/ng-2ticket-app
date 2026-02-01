@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { EventDetailsPreloadResolver } from './core/resolvers/event-details.resolver';
 import { EventsPreloadResolver } from './core/resolvers/events.resolver';
 import { MainLayout } from './shared/main-layout/main-layout';
+import { hasDataGuard } from './core/guards/has-data-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'events', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'checkout',
+        canActivate: [hasDataGuard],
         loadComponent: () => import('./views/checkout/checkout').then((m) => m.Checkout),
       },
     ],

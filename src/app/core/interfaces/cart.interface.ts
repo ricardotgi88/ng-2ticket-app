@@ -1,6 +1,7 @@
-import { Ticket } from './cart-ticket.interface';
+import { CartTicket } from './cart-ticket.interface';
 
 export interface Cart {
-  total: number;
-  tickets: Ticket[];
+  totalPrice: number;
+  totalTickets: number;
+  tickets: CartTicket[];
 }

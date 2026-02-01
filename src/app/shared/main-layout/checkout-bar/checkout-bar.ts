@@ -1,18 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideShoppingCart } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { RouteService } from '../../../core/services/route.service';
+import { AppStore } from '../../../core/store/app-store';
+import { CurrencyPipe } from '@angular/common';
+import { AppPages } from '../../../core/enums/app-pages.enum';
 
 @Component({
   selector: 'app-checkout-bar',
-  imports: [HlmButtonImports, NgIcon, HlmIconImports],
+  imports: [HlmButtonImports, NgIcon, HlmIconImports, CurrencyPipe],
   providers: [provideIcons({ lucideArrowLeft, lucideShoppingCart })],
   templateUrl: './checkout-bar.html',
   styleUrl: './checkout-bar.css',
 })
 export class CheckoutBar {
-  onGoBack() {
-    window.history.back();
+  readonly #store = inject(AppStore);
+  readonly #routeService = inject(RouteService);
+
+  cart = this.#store.cart;
+  currentPage = this.#routeService.currentPage;
+  appPages = AppPages;
+
+  onGoToPreviousPage(): void {
+    this.#routeService.goToPreviousPage();
+  }
+
+  onCheckout(): void {
+    this.#routeService.goToCheckout();
   }
 }

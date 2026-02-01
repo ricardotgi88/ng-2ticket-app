@@ -1,16 +1,30 @@
-<div
-  class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky bottom-0 bg-white/50 backdrop-blur-md border-t border-gray-200"
->
-  <button hlmBtn variant="outline" class="rounded-full mr-auto" (click)="onGoBack()">
-    <ng-icon hlm size="sm" name="lucideArrowLeft" />
-    <span class="font-semibold"> Voltar </span>
-  </button>
-  <div class="flex flex-col items-center mr-4">
-    <span class="text-xs">
-      <ng-icon hlm size="sm" name="lucideShoppingCart" />
-      15,00$
-    </span>
-    <span class="text-xs"> 2 Bilhetes </span>
+@let cartData = cart();
+@let currentPageData = currentPage();
+
+@if (cartData.totalPrice > 0) {
+  <div
+    class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky bottom-0 bg-white/50 backdrop-blur-md border-t border-gray-200"
+  >
+    @if (currentPageData !== appPages.Events) {
+      <button hlmBtn variant="outline" class="rounded-full mr-auto" (click)="onGoToPreviousPage()">
+        <ng-icon hlm size="sm" name="lucideArrowLeft" />
+        <span class="font-semibold"> Voltar </span>
+      </button>
+    }
+    <div class="flex flex-col items-center mr-4">
+      <span class="text-xs">
+        <ng-icon hlm size="sm" name="lucideShoppingCart" />
+        {{ cartData.totalPrice | currency: 'EUR' : 'symbol-narrow' }}
+      </span>
+      <span class="text-xs"> {{ cartData.totalTickets }} Bilhetes </span>
+    </div>
+    @if (currentPageData !== appPages.Checkout) {
+      <button hlmBtn variant="default" class="rounded-full" (click)="onCheckout()">
+        Finalizar Compra
+      </button>
+    }
+    @if (currentPageData === appPages.Checkout) {
+      <button hlmBtn variant="default" class="rounded-full">Efetuar Pagamento</button>
+    }
   </div>
-  <button hlmBtn variant="default" class="rounded-full">Finalizar Compra</button>
-</div>
+}

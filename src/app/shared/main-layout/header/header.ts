@@ -5,18 +5,27 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 import { RouteService } from '../../../core/services/route.service';
+import { AppStore } from '../../../core/store/app-store';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [HlmButtonImports, NgIcon, HlmIconImports],
+  imports: [HlmButtonImports, NgIcon, HlmIconImports, CurrencyPipe],
   providers: [provideIcons({ lucideArrowLeft, lucideUser2, lucideShoppingCart, lucideFlag })],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  readonly #store = inject(AppStore);
   readonly #routeService = inject(RouteService);
+
+  cart = this.#store.cart;
 
   onGoBack() {
     this.#routeService.goToEvents();
+  }
+
+  onCheckout(): void {
+    this.#routeService.goToCheckout();
   }
 }

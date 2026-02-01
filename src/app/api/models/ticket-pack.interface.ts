@@ -1,5 +1,6 @@
 // https://api.dev.2ticket.pt/ticketpacks/apikey/d1b53c7d-22c4-4b75-92dd-c8966317fbba
-import { TicketPackEvent } from './ticket-pack-event.interface';
+import { TicketPackEventPlace } from './ticket-pack-event-place.interface';
+import { TicketType } from './ticket-type.interface';
 
 export interface TicketPack {
   id: number;
@@ -12,11 +13,12 @@ export interface TicketPack {
   notes: string;
   ticketPackTemplateId: number | null;
   ticketTypeId: number;
+  ticketType: TicketType;
   taxId: number;
   partialTaxId: number | null;
   partialTaxApplyPercentage: number | null;
   price: number;
   uses: number;
-  events: TicketPackEvent[];
+  events: TicketPackEventPlace[];
   active: boolean;
 }

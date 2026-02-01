@@ -1,11 +1,16 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { finalize, tap } from 'rxjs';
+import { finalize, Observable, of, tap } from 'rxjs';
 
-import { Event } from '../data/models/event.interface';
-import { PriceMap } from '../data/models/price-maps.interface';
-import { TicketType } from '../data/models/ticket-type.interface';
-import { TicketTypeDataService } from '../data/ticket-type.data.service';
+import { Event } from '../../api/models/event.interface';
+import { PriceMap } from '../../api/models/price-map.interface';
+import { TicketType } from '../../api/models/ticket-type.interface';
+import { TicketTypeDataService } from '../../api/services/ticket-type.data.service';
 import { AppStore } from '../store/app-store';
+import { TicketPack } from '../../api/models/ticket-pack.interface';
+import { Place } from '../../api/models/place.interface';
+import { PriceMapItem } from '../../api/models/price-map-item.interface';
+
+type TicketRef = { ticketTypeId: number; ticketType?: TicketType };
 
 @Injectable({
   providedIn: 'root',
@@ -17,68 +22,85 @@ export class TicketTypesService {
   isLoading = signal(false);
 
   public enrichData(): void {
+    if (this.isLoading()) {
+      return;
+    }
+
+    const selectedEvent = this.#store.selectedEvent();
+
+    const needEnrichement = selectedEvent?.places.some(
+      (place) =>
+        this.#needEnrichement(place.ticketPacks) || this.#needEnrichement(place.priceMap?.mapping),
+    );
+
+    if (needEnrichement) {
+      this.#getTicketTypes().subscribe((ticketTypes) =>
+        this.#enrichEventWithTicketTypes(ticketTypes, selectedEvent!),
+      );
+    }
+  }
+
+  #getTicketTypes(): Observable<TicketType[]> {
     const ticketTypes = this.#store.ticketTypes();
     if (ticketTypes.length) {
-      this.#enrichEventsWithTypes(ticketTypes);
-      return;
+      return of(ticketTypes);
     }
 
     this.isLoading.set(true);
-    this.#ticketTypeDataService
-      .getAllTicketTypes()
-      .pipe(
-        tap((ticketTypes) => this.#store.setTicketTypes(ticketTypes)),
-        finalize(() => this.isLoading.set(false)),
-      )
-      .subscribe((ticketTypes) => this.#enrichEventsWithTypes(ticketTypes));
+
+    return this.#ticketTypeDataService.getAll().pipe(
+      tap((ticketTypes) => this.#store.setTicketTypes(ticketTypes)),
+      finalize(() => this.isLoading.set(false)),
+    );
   }
 
-  #enrichEventsWithTypes(ticketTypes: TicketType[]): void {
-    const events = this.#store.events().length
-      ? this.#store.events()
-      : this.#store.selectedEvent()
-        ? [this.#store.selectedEvent()!]
-        : [];
+  #enrichEventWithTicketTypes(ticketTypes: TicketType[], event: Event): void {
+    let enrichedPlaces: Place[] = [];
 
-    if (!events.length || !ticketTypes.length) {
-      return;
+    for (const place of event.places || []) {
+      const hydratedMapping = this.#hidrateTicketType(place.priceMap?.mapping, ticketTypes);
+
+      const hydratedTicketPacks = place.ticketPacks
+        ? this.#hidrateTicketType(place.ticketPacks, ticketTypes)
+        : null;
+
+      let enrichedPlace: Place = {
+        ...place,
+        priceMap: {
+          ...place.priceMap,
+          mapping: hydratedMapping,
+        },
+        ticketPacks: hydratedTicketPacks,
+      };
+
+      enrichedPlaces.push(enrichedPlace);
     }
 
-    for (const event of events) {
-      for (const place of event.places || []) {
-        if (!place.priceMap) {
-          continue;
-        }
-
-        this.#enrichPriceMapWithTypes(place.priceMap, ticketTypes, event);
-      }
-    }
+    this.#store.enrichSelectedEvent({ ...event, places: enrichedPlaces });
   }
 
-  #enrichPriceMapWithTypes(priceMap: PriceMap, ticketTypes: TicketType[], event: Event): void {
-    if (this.#skipEnrich(priceMap)) {
-      return;
-    }
+  #needEnrichement<T extends TicketRef>(
+    arrayWithTicketType: T[] | null,
+  ): arrayWithTicketType is T[] {
+    return (
+      Array.isArray(arrayWithTicketType) &&
+      arrayWithTicketType.length > 0 &&
+      arrayWithTicketType.every((item) => !item.ticketType)
+    );
+  }
 
-    const enrichedPriceMap = priceMap.mapping.map((mapping) => {
-      const ticketType = ticketTypes.find((type) => type.id === mapping.ticketTypeId);
+  #hidrateTicketType<T extends TicketRef>(
+    arrayToFeed: T[],
+    ticketTypesRegistry: TicketType[],
+  ): T[] {
+    const enrichedArray: T[] = arrayToFeed.map((array) => {
+      const ticketType = ticketTypesRegistry.find((type) => type.id === array.ticketTypeId);
       if (ticketType) {
-        mapping.ticketType = ticketType;
+        array.ticketType = ticketType;
       }
-      return mapping;
+      return array;
     });
 
-    const enrichedPlaces = event.places?.map((place) => {
-      if (place.priceMapId === priceMap.id) {
-        place.priceMap = { ...priceMap, mapping: enrichedPriceMap };
-      }
-      return place;
-    });
-
-    this.#store.enrichEvent({ ...event, places: enrichedPlaces });
-  }
-
-  #skipEnrich(priceMap: PriceMap): boolean {
-    return !priceMap.mapping || priceMap.mapping.every((item) => !!item.ticketType);
+    return enrichedArray;
   }
 }

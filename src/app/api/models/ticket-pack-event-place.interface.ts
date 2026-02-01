@@ -1,7 +1,6 @@
 import { Event } from './event.interface';
 
-export interface TicketPackEvent {
+export interface TicketPackEventPlace {
   eventId: number;
-  event: Event;
   eventPlaceId: number;
 }

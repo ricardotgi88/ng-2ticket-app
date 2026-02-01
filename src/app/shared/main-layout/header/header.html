@@ -1,3 +1,4 @@
+@let cartData = cart();
 <div
   class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky top-0 bg-white/50 backdrop-blur-md"
 >
@@ -9,9 +10,9 @@
   <button hlmBtn size="icon" variant="outline" class="rounded-full">
     <ng-icon hlm size="sm" name="lucideUser2" />
   </button>
-  <button hlmBtn class="rounded-full">
+  <button hlmBtn class="rounded-full" [disabled]="cartData.totalPrice === 0" (click)="onCheckout()">
     <ng-icon hlm size="sm" name="lucideShoppingCart" />
-    15,00$
+    {{ cartData.totalPrice | currency: 'EUR' : 'symbol-narrow' }}
   </button>
   <button hlmBtn variant="outline" class="rounded-full">
     <ng-icon hlm size="sm" name="lucideFlag" />

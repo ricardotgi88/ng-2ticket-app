@@ -1,38 +1,27 @@
-import { inject, Injectable } from '@angular/core';
-import { catchError, finalize, forkJoin, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { inject, Injectable, untracked } from '@angular/core';
+import { catchError, finalize, map, Observable, of, take, tap } from 'rxjs';
 
-import { EventsDataService } from '../data/events.data.service';
-import { Event } from '../data/models/event.interface';
-import { PriceMapDataService } from '../data/price-maps.data.service';
+import { EventsDataService } from '../../api/services/events.data.service';
+import { Event } from '../../api/models/event.interface';
 import { AppStore } from '../store/app-store';
+import { PriceMapService } from './price-map.service';
+import { TicketPackService } from './ticket-pack.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventsDetailsService {
   #appStore = inject(AppStore);
-  #eventDataService: EventsDataService = inject(EventsDataService);
-  #priceMapDataService = inject(PriceMapDataService);
+  #eventDataService = inject(EventsDataService);
+  #priceMapService = inject(PriceMapService);
+  #ticketPackService = inject(TicketPackService);
 
-  public resolveData(eventId: string): Observable<boolean> {
+  public resolveData(eventId: number): Observable<boolean> {
     const selectedEvent = this.#appStore.selectedEvent();
-    let request: Observable<Event> | undefined = undefined;
 
     if (!selectedEvent) {
-      request = this.#eventDataService.getEventById(eventId).pipe(
-        switchMap((event) => this.#loadEventPriceMap(event)),
+      return this.#eventDataService.getById(eventId).pipe(
         tap((event) => this.#appStore.selectEvent(event)),
-      );
-    }
-
-    if (selectedEvent?.places?.length && selectedEvent.places.every((place) => !place.priceMap)) {
-      request = this.#loadEventPriceMap(selectedEvent).pipe(
-        tap((event) => this.#appStore.enrichSelectedEvent(event)),
-      );
-    }
-
-    if (request) {
-      return request.pipe(
         take(1),
         map(() => true),
         catchError(() => of(false)),
@@ -42,38 +31,101 @@ export class EventsDetailsService {
     return of(true);
   }
 
-  #loadEventPriceMap(selectedEvent: Event): Observable<Event> {
-    if (!selectedEvent.places?.length) {
-      return of(selectedEvent);
+  public monitorData(): void {
+    this.#monitorPriceMaps();
+    this.#monitorTicketPacks();
+  }
+
+  #monitorPriceMaps(): void {
+    if (this.#appStore.isLoading()) {
+      return;
     }
 
-    const priceMapsRequests$ = selectedEvent.places?.map((place) =>
-      this.#priceMapDataService.getPriceMapById(place.priceMapId),
+    const event = this.#appStore.selectedEvent();
+
+    const hasAnyPriceMapNotLoaded = event?.places.some(
+      (place) => place.priceMapId && !place.priceMap,
     );
 
-    this.#appStore.setLoading(true);
+    if (event && hasAnyPriceMapNotLoaded) {
+      this.#enrichEventDetailsPriceMaps(event);
+    }
+  }
 
-    return forkJoin(priceMapsRequests$).pipe(
-      map((priceMaps) => {
-        const enrichedPlaces = selectedEvent.places.map((place, index) => {
-          return {
-            ...place,
-            priceMap: priceMaps[index],
-          };
-        });
+  #monitorTicketPacks(): void {
+    if (this.#appStore.isLoading()) {
+      return;
+    }
 
-        const enrichedEvent = {
-          ...selectedEvent,
-          places: enrichedPlaces,
-        } as Event;
+    const event = this.#appStore.selectedEvent();
 
-        return enrichedEvent;
-      }),
-      catchError((error) => {
-        this.#appStore.setError(error.message);
-        return of({} as Event);
-      }),
-      finalize(() => this.#appStore.setLoading(false)),
+    const hasAnyTicketPackNotLoaded = event?.places.some(
+      (place) => !Array.isArray(place.ticketPacks),
     );
+
+    if (event && hasAnyTicketPackNotLoaded) {
+      this.#enrichEventDetailsTicketPack(event);
+    }
+  }
+
+  #enrichEventDetailsTicketPack(event: Event): void {
+    if (!event.places?.length) {
+      return;
+    }
+
+    untracked(() => this.#appStore.setLoading(true));
+
+    this.#ticketPackService
+      .loadTicketPackByEvent(event)
+      .pipe(
+        map((ticketPacks) => {
+          const enrichedPlaces = event.places.map((place) => {
+            const placeTicketPacks =
+              ticketPacks.filter((tp) =>
+                tp.events.some((tpe) => tpe.eventId === event.id && tpe.eventPlaceId === place.id),
+              ) ?? [];
+            return {
+              ...place,
+              ticketPacks: placeTicketPacks,
+            };
+          });
+
+          const enrichedEvent = {
+            ...event,
+            places: enrichedPlaces,
+          } as Event;
+
+          return enrichedEvent;
+        }),
+        finalize(() => untracked(() => this.#appStore.setLoading(false))),
+      )
+      .subscribe((event) => untracked(() => this.#appStore.enrichSelectedEvent(event)));
+  }
+
+  #enrichEventDetailsPriceMaps(event: Event): void {
+    if (!event.places?.length) {
+      return;
+    }
+
+    this.#priceMapService
+      .loadPriceMapsByEvent(event)
+      .pipe(
+        map((priceMaps) => {
+          const enrichedPlaces = event.places.map((place, index) => {
+            return {
+              ...place,
+              priceMap: priceMaps[index],
+            };
+          });
+
+          const enrichedEvent = {
+            ...event,
+            places: enrichedPlaces,
+          } as Event;
+
+          return enrichedEvent;
+        }),
+      )
+      .subscribe((event) => untracked(() => this.#appStore.enrichSelectedEvent(event)));
   }
 }

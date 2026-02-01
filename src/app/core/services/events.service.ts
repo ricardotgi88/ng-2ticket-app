@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of, take, tap } from 'rxjs';
 
-import { EventsDataService } from '../data/events.data.service';
+import { EventsDataService } from '../../api/services/events.data.service';
 import { AppStore } from '../store/app-store';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class EventsService {
 
   public resolveData(): Observable<boolean> {
     if (!this.#appStore.hasEvents()) {
-      return this.#eventDataService.getEvents().pipe(
+      return this.#eventDataService.getAll().pipe(
         tap((events) => this.#appStore.setEvents(events)),
         take(1),
         map(() => true),

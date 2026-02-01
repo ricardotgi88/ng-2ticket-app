@@ -1,7 +1,30 @@
-@if (priceMap; as priceMap) {
-  @if (!isLoading()) {
-    @for (priceMapItem of priceMap.mapping; track priceMapItem.id) {
-      <app-ticket-selector-card [priceMapItem]="priceMapItem" [priceMap]="priceMap" />
+@if (!isLoading()) {
+  @if (priceMap; as priceMap) {
+    @if (priceMap?.active) {
+      @for (priceMapItem of priceMap.mapping; track priceMapItem.id) {
+        @if (priceMapItem.ticketType.active) {
+          <app-ticket-selector-card
+            [name]="priceMap.name"
+            [price]="priceMapItem.price"
+            (changed)="onSelectionChange(priceMapItem.id, ticketTypeEnum.priceMap, $event)"
+          />
+        }
+      }
+    }
+  }
+  @if (ticketPacks?.length) {
+    packs
+    @for (ticketPack of ticketPacks; track ticketPack.id) {
+      @if (ticketPack.active && ticketPack.ticketType.active) {
+        <app-ticket-selector-card
+          [name]="ticketPack.name"
+          [price]="ticketPack.price"
+          [description]="ticketPack.description"
+          [maxSelection]="ticketPack.uses"
+          (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
+          (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
+        />
+      }
     }
   }
 }
