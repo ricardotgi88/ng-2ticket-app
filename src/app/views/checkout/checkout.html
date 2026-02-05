@@ -1,1 +1,206 @@
-<p>checkout works!</p>
+<div class="flex md:flex-row flex-col gap-8">
+  <div class="basis-full md:basis-1/2 md:order-first">
+    <form [formGroup]="checkoutForm">
+      <div hlmFieldGroup>
+        <fieldset hlmFieldSet>
+          <legend hlmFieldLegend>Customer Details</legend>
+          <div hlmFieldGroup>
+            <div hlmField>
+              <label hlmFieldLabel for="checkout-name">Name</label>
+              <input hlmInput id="checkout-name" formControlName="name" />
+            </div>
+            <div hlmField>
+              <label hlmFieldLabel for="checkout-tel-number">Telemóvel*</label>
+              <div class="flex gap-4">
+                <brn-select
+                  id="checkout-country-code"
+                  class="inline-block"
+                  placeholder="Select"
+                  formControlName="countryCode"
+                >
+                  <hlm-select-trigger id="checkout-country-code--trigger" class="w-full">
+                    <hlm-select-value />
+                  </hlm-select-trigger>
+                  <hlm-select-content>
+                    <hlm-option value="+1">+1</hlm-option>
+                    <hlm-option value="+34">+34</hlm-option>
+                    <hlm-option value="+351">+351</hlm-option>
+                    <hlm-option value="+44">+44</hlm-option>
+                  </hlm-select-content>
+                </brn-select>
+                <input hlmInput id="checkout-tel-number" formControlName="telNumber" />
+              </div>
+            </div>
+            <div hlmField>
+              <label hlmFieldLabel for="checkout-email">Email</label>
+              <input hlmInput id="checkout-email" type="email" formControlName="email" />
+            </div>
+
+            <section hlmCard class="border-gray-200 shadow-none">
+              <hlm-accordion>
+                <hlm-accordion-item class="border-0">
+                  <h3 hlmCardHeader class="gap-0">
+                    <button hlmAccordionTrigger class="p-0">
+                      <p hlmFieldLabel for="checkout-cupom">Adicionar dados de Faturação?</p>
+                      <ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+                    </button>
+                  </h3>
+
+                  <hlm-accordion-content hlmCardContent [withBottomPadding]="false">
+                    <div class="flex flex-col gap-4 pt-4">
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-address">Address</label>
+                        <input hlmInput id="checkout-address" formControlName="address" />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-address-number">Address Number</label>
+                        <input
+                          hlmInput
+                          id="checkout-address-number"
+                          formControlName="addressNumber"
+                        />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-city">City</label>
+                        <input hlmInput id="checkout-city" formControlName="city" />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-country">Country</label>
+                        <input hlmInput id="checkout-country" formControlName="country" />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-zipcode">Zipcode</label>
+                        <input hlmInput id="checkout-zipcode" formControlName="zipcode" />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-address-complement"
+                          >Address Complement</label
+                        >
+                        <input
+                          hlmInput
+                          id="checkout-address-complement"
+                          formControlName="addressComplement"
+                        />
+                      </div>
+                      <div hlmField>
+                        <label hlmFieldLabel for="checkout-vat-number">VAT Number</label>
+                        <input hlmInput id="checkout-vat-number" formControlName="vatNumber" />
+                      </div>
+                    </div>
+                  </hlm-accordion-content>
+                </hlm-accordion-item>
+              </hlm-accordion>
+            </section>
+          </div>
+        </fieldset>
+
+        <fieldset hlmFieldSet>
+          <legend hlmFieldLegend data-variant="legend">Payment</legend>
+          <div hlmFieldGroup>
+            <div hlmField>
+              <label hlmFieldLabel for="checkout-payment-mbway">Payment Type</label>
+              <div class="grid gap-2">
+                <hlm-radio-group class="grid grid-row-3 gap-1" formControlName="paymentType">
+                  @for (type of paymentTypes; track type.value) {
+                    <label class="flex items-center w-full" hlmFieldLabel [class]="radioCardClass">
+                      <hlm-radio [value]="type.value">
+                        @let isChecked = type.value === checkoutForm.controls['paymentType'].value;
+                        <div
+                          class="flex items-center justify-center border rounded-full border-gray-400 w-5 h-5 mr-2"
+                          [class.bg-sky-600]="isChecked"
+                          [class.border-sky-600]="isChecked"
+                        >
+                          @if (isChecked) {
+                            <ng-icon
+                              hlm
+                              name="lucideCheck"
+                              [class.text-white]="isChecked"
+                              size="14px"
+                            />
+                          }
+                        </div>
+                      </hlm-radio>
+                      <p class="text-sm leading-none font-medium">
+                        {{ type.name }}
+                      </p>
+                    </label>
+                  }
+                </hlm-radio-group>
+              </div>
+            </div>
+
+            <section hlmCard class="border-gray-200 shadow-none">
+              <hlm-accordion>
+                <hlm-accordion-item class="border-0" [isOpened]="true">
+                  <h3 hlmCardHeader class="gap-0">
+                    <button hlmAccordionTrigger class="p-0">
+                      <p hlmFieldLabel for="checkout-onlinecode">Tem um código de desconto?</p>
+                      <ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+                    </button>
+                  </h3>
+
+                  <hlm-accordion-content hlmCardContent [withBottomPadding]="false">
+                    <div class="flex flex-col pt-4 gap-2">
+                      <div class="flex gap-4">
+                        <div hlmField>
+                          <input hlmInput id="checkout-onlinecode" formControlName="onlinecode" />
+                        </div>
+                        <button
+                          hlmBtn
+                          class="rounded-full"
+                          [disabled]="!checkoutForm.controls['onlinecode'].value"
+                        >
+                          Aplicar
+                        </button>
+                      </div>
+                      <p hlmFieldDescription>Exemplo de códigos: BEMVINDO10, VIP20, PROMO15</p>
+                    </div>
+                  </hlm-accordion-content>
+                </hlm-accordion-item>
+              </hlm-accordion>
+            </section>
+
+            <div hlmFieldGroup data-slot="checkbox-group">
+              <div hlmField orientation="horizontal">
+                <label
+                  hlmFieldLabel
+                  for="checkout-tac"
+                  class="flex items-center w-full gap-3 rounded-lg border p-3 border-gray-300 has-[[aria-checked=true]]:border-sky-600"
+                >
+                  <hlm-checkbox
+                    id="checkout-tac"
+                    formControlName="hasAcceptedTaC"
+                    [checked]="true"
+                    class="data-[state=checked]:border-sky-600 data-[state=checked]:bg-sky-600 w-5 h-5"
+                  />
+
+                  <p class="text-sm leading-none font-medium">I accept the terms and conditions</p>
+                </label>
+              </div>
+
+              <div hlmField orientation="horizontal">
+                <label
+                  hlmFieldLabel
+                  for="checkout-newsletter"
+                  class="flex items-center w-full gap-3 rounded-lg border p-3 border-gray-300 has-[[aria-checked=true]]:border-sky-600"
+                >
+                  <hlm-checkbox
+                    id="checkout-newsletter"
+                    formControlName="hasAcceptedNewsLetter"
+                    [checked]="true"
+                    class="data-[state=checked]:border-sky-600 data-[state=checked]:bg-sky-600 w-5 h-5"
+                  />
+
+                  <p class="text-sm leading-none font-medium">
+                    Quero receber informações de news letters
+                  </p>
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+  <div class="cart-details basis-full md:basis-1/2 order-first">cart details</div>
+</div>

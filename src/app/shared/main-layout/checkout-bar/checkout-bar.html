@@ -3,7 +3,7 @@
 
 @if (cartData.totalPrice > 0) {
   <div
-    class="ml-auto flex items-center justify-end gap-4 p-4 mx-auto max-w-6xl sticky bottom-0 bg-white/50 backdrop-blur-md border-t border-gray-200"
+    class="ml-auto flex items-center justify-end gap-4 py-4 px-4 md:px-8 lg:px-0 mx-auto max-w-6xl sticky bottom-0 bg-white/50 backdrop-blur-md border-t border-gray-200"
   >
     @if (currentPageData !== appPages.Events) {
       <button hlmBtn variant="outline" class="rounded-full mr-auto" (click)="onGoToPreviousPage()">
