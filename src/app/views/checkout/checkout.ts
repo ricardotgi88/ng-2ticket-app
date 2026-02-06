@@ -1,39 +1,29 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideCircle } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { hlm } from '@spartan-ng/helm/utils';
+
+import { AccordionInput } from '../../shared/components/form/accordion-input/accordion-input';
+import { CheckboxInput } from '../../shared/components/form/checkbox-input/checkbox-input';
+import { RadioInput } from '../../shared/components/form/radio-input/radio-input';
+import { SelectInput } from '../../shared/components/form/select-input/select-input';
 
 @Component({
   selector: 'app-checkout',
   imports: [
-    HlmCheckboxImports,
     HlmTextareaImports,
     HlmButtonImports,
     HlmInputImports,
     HlmFieldImports,
-    BrnSelectImports,
-    HlmSelectImports,
-    HlmAccordionImports,
-    HlmCardImports,
-    HlmRadioGroupImports,
-    NgIcon,
-    HlmIconImports,
     ReactiveFormsModule,
+    AccordionInput,
+    CheckboxInput,
+    RadioInput,
+    SelectInput,
   ],
-  providers: [provideIcons({ lucideCheck, lucideCircle })],
-
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
 })
@@ -52,6 +42,12 @@ export class Checkout {
     { value: 'mbWay', name: 'MbWay' },
     { value: 'creditCard', name: 'Cartão de Crédito' },
     { value: 'paypal', name: 'Paypal' },
+  ];
+
+  countryCodes = [
+    { value: '+351', name: '+351' },
+    { value: '+34', name: '+34' },
+    { value: '+33', name: '+33' },
   ];
 
   public checkoutForm = new FormGroup({

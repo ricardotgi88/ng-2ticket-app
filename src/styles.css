@@ -6,6 +6,12 @@
 @import 'tailwindcss/utilities.css';
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
+@layer base {
+  button, input, select, optgroup, textarea, ::file-selector-button {
+    background-color: var(--input-background);
+  }
+}
+
 :root {
   color-scheme: light;
   --font-sans: 'Geist Sans', sans-serif;
@@ -27,6 +33,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
+  --input-background: oklch(100% 0.00011 271.152);
   --ring: oklch(0.708 0 0);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -57,6 +64,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
+  --input-background: oklch(0% 0 0);
   --ring: oklch(0.556 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
