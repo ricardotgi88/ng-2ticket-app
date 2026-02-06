@@ -1,0 +1,33 @@
+<div class="grid gap-2">
+  <hlm-radio-group
+    class="grid grid-row gap-1"
+    [name]="name"
+    [value]="value"
+    [disabled]="isDisabled"
+    (valueChange)="onValueChange($event)"
+  >
+    @for (option of options; track option.value) {
+      <label
+        class="flex items-center w-full"
+        hlmFieldLabel
+        [class]="itemClass ? radioCardClass + ' ' + itemClass : radioCardClass"
+      >
+        <hlm-radio [value]="option.value">
+          @let isChecked = option.value === value;
+          <div
+            class="flex items-center justify-center border rounded-full border-gray-400 w-5 h-5 mr-2"
+            [class.bg-sky-600]="isChecked"
+            [class.border-sky-600]="isChecked"
+          >
+            @if (isChecked) {
+              <ng-icon hlm name="lucideCheck" [class.text-white]="isChecked" size="14px" />
+            }
+          </div>
+        </hlm-radio>
+        <p class="text-sm leading-none font-medium">
+          {{ option.name }}
+        </p>
+      </label>
+    }
+  </hlm-radio-group>
+</div>

@@ -1,0 +1,23 @@
+<section
+  hlmCard
+  class="border-gray-200 shadow-none transition-colors"
+  [ngClass]="{ 'hover:bg-accent/10': !isOpened }"
+>
+  <hlm-accordion>
+    <hlm-accordion-item
+      class="border-0"
+      [isOpened]="isOpened"
+      (openedChange)="openedChange.emit($event); isOpened = $event"
+    >
+      <h3 hlmCardHeader class="gap-0">
+        <a hlmAccordionTrigger role="button" class="p-0 cursor-pointer">
+          <ng-content select="[accordionHeader]"></ng-content>
+          <ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+        </a>
+      </h3>
+      <hlm-accordion-content hlmCardContent [withBottomPadding]="false">
+        <ng-content select="[accordionContent]"></ng-content>
+      </hlm-accordion-content>
+    </hlm-accordion-item>
+  </hlm-accordion>
+</section>

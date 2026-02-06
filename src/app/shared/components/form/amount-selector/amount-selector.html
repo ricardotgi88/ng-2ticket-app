@@ -1,0 +1,24 @@
+<div class="flex items-center gap-3">
+  <button
+    hlmBtn
+    size="icon"
+    variant="outline"
+    type="button"
+    class="rounded-full h-10 w-10 cursor-pointer"
+    (click)="onRemove()"
+    [disabled]="isDisabled || selected <= minSelection"
+  >
+    <ng-icon hlm name="lucideMinus" size="18px" />
+  </button>
+  <span>{{ selected }}</span>
+  <button
+    hlmBtn
+    size="icon"
+    type="button"
+    class="rounded-full h-10 w-10 cursor-pointer"
+    (click)="onAdd()"
+    [disabled]="isDisabled || (maxSelection > 0 && selected >= maxSelection)"
+  >
+    <ng-icon hlm name="lucidePlus" size="18px" />
+  </button>
+</div>

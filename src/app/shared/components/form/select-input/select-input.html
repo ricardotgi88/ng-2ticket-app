@@ -1,0 +1,21 @@
+<brn-select
+  [id]="id"
+  class="inline-block"
+  [placeholder]="placeholder"
+  [disabled]="isDisabled"
+  [value]="value"
+  (valueChange)="onValueChange($event)"
+>
+  <hlm-select-trigger
+    [id]="triggerId || (id ? id + '--trigger' : null)"
+    class="w-full"
+    (blur)="onTriggerBlur()"
+  >
+    <hlm-select-value />
+  </hlm-select-trigger>
+  <hlm-select-content>
+    @for (option of options; track option.value) {
+      <hlm-option [value]="option.value">{{ option.name }}</hlm-option>
+    }
+  </hlm-select-content>
+</brn-select>
