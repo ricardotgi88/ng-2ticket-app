@@ -1,5 +1,5 @@
-<section class="w-full" hlmCard>
-  <div hlmCardHeader>
+<section class="w-full border-gray-200 py-5 gap-3" hlmCard>
+  <div hlmCardHeader class="px-4">
     <div hlmCardTitle class="flex items-center gap-2">
       <h3>{{ name }}</h3>
       @if (remainingTickets > 0 && remainingTickets < 50) {
@@ -15,30 +15,15 @@
     }
   </div>
 
-  <div hlmCardFooter class="flex gap-2 justify-between items-center border-t">
+  <div
+    hlmCardFooter
+    class="flex gap-2 justify-between items-center [.border-t]:pt-3 border-t border-gray-200 px-4"
+  >
     <span> {{ price | currency: 'EUR' : 'symbol-narrow' }} </span>
-    <div class="flex items-center gap-2">
-      <button
-        hlmBtn
-        size="icon"
-        variant="outline"
-        class="rounded-full"
-        (click)="onRemove()"
-        [disabled]="selected <= 0"
-      >
-        -
-      </button>
-      <span>{{ selected }}</span>
-      <button
-        hlmBtn
-        size="icon"
-        type="button"
-        class="rounded-full"
-        (click)="onAdd()"
-        [disabled]="maxSelection > 0 && selected >= maxSelection"
-      >
-        +
-      </button>
-    </div>
+    <app-amount-selector
+      [formControl]="amountControl"
+      [maxSelection]="maxSelection"
+      [minSelection]="0"
+    />
   </div>
 </section>

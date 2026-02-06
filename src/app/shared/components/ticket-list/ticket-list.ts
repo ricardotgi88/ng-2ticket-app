@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges } from '@angular/core';
+import { Component, effect, inject, Input, OnChanges } from '@angular/core';
 
 import { PriceMap } from '../../../api/models/price-map.interface';
 import { TicketPack } from '../../../api/models/ticket-pack.interface';
@@ -22,9 +22,28 @@ export class TicketList implements OnChanges {
   @Input() priceMap: PriceMap | null = null;
   @Input() ticketPacks: TicketPack[] | null = null;
 
+  selectedTicketsMap: Map<string, number> = new Map();
   isLoading = this.#ticketTypesService.isLoading;
   ticketTypeEnum = TicketTypeEnum;
   operationTypeEnum = OperationTypeEnum;
+
+  constructor() {
+    effect(() => {
+      const selectedTickets = this.#cartService.getSelectedTickets();
+      const newMap = new Map<string, number>();
+
+      for (const ticket of selectedTickets) {
+        const id =
+          ticket.ticketType === TicketTypeEnum.ticketPack
+            ? ticket.ticketPackId
+            : ticket.priceMapItemId;
+        const key = `${ticket.ticketType}-${id}`;
+        newMap.set(key, ticket.amount ?? 0);
+      }
+
+      this.selectedTicketsMap = newMap;
+    });
+  }
 
   ngOnChanges(): void {
     this.#ticketTypesService.enrichData();

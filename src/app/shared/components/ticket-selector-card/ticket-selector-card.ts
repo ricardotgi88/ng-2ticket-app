@@ -1,26 +1,17 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
+import { Component, DestroyRef, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { startWith, pairwise } from 'rxjs';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 import { CartTicket } from '../../../core/interfaces/cart-ticket.interface';
+import { AmountSelector } from '../form/amount-selector/amount-selector';
 
 @Component({
   selector: 'app-ticket-selector-card',
-  imports: [
-    HlmCardImports,
-    HlmLabelImports,
-    HlmInputImports,
-    HlmButtonImports,
-    HlmBadgeImports,
-    CurrencyPipe,
-  ],
-  providers: [provideIcons({ lucideCheck, lucideChevronDown })],
+  imports: [HlmCardImports, HlmBadgeImports, AmountSelector, ReactiveFormsModule, CurrencyPipe],
   templateUrl: './ticket-selector-card.html',
   host: {
     class: 'contents',
@@ -28,10 +19,16 @@ import { CartTicket } from '../../../core/interfaces/cart-ticket.interface';
   styleUrl: './ticket-selector-card.css',
 })
 export class TicketSelectorCard {
+  readonly #destroyRef = inject(DestroyRef);
+  readonly amountControl = new FormControl(0, { nonNullable: true });
+
   @Input() name = '';
   @Input() description = '';
   @Input() price = 0;
-  @Input() selected = 0;
+  @Input() set selected(value: number) {
+    const nextValue = value ?? 0;
+    this.amountControl.setValue(nextValue, { emitEvent: false });
+  }
   @Input() maxSelection = -1;
   @Input() remainingTickets = -1;
 
@@ -39,23 +36,25 @@ export class TicketSelectorCard {
   @Output() added = new EventEmitter<void>();
   @Output() removed = new EventEmitter<void>();
 
-  onAdd(): void {
-    this.selected += 1;
-    this.added.emit();
-    this.#changed();
+  constructor() {
+    this.amountControl.valueChanges
+      .pipe(startWith(this.amountControl.value), pairwise(), takeUntilDestroyed(this.#destroyRef))
+      .subscribe(([previous, current]) => {
+        if (current === previous) return;
+        if (current > previous) {
+          this.added.emit();
+        } else if (current < previous) {
+          this.removed.emit();
+        }
+        this.#changed(current);
+      });
   }
 
-  onRemove(): void {
-    this.selected = this.selected > 0 ? this.selected - 1 : 0;
-    this.removed.emit();
-    this.#changed();
-  }
-
-  #changed(): void {
+  #changed(amount: number): void {
     const ticket: Partial<CartTicket> = {
-      amount: this.selected,
+      amount,
       price: this.price,
-      total: this.price * this.selected,
+      total: this.price * amount,
     };
 
     this.changed.emit(ticket);
