@@ -10,10 +10,17 @@
   <button hlmBtn size="icon" variant="outline" class="rounded-full">
     <ng-icon hlm size="sm" name="lucideUser2" />
   </button>
-  <button hlmBtn class="rounded-full" [disabled]="cartData.totalPrice === 0" (click)="onCheckout()">
-    <ng-icon hlm size="sm" name="lucideShoppingCart" />
-    {{ cartData.totalPrice | currency: 'EUR' : 'symbol-narrow' }}
-  </button>
+  @if (currentPage() !== appPages.Checkout) {
+    <button
+      hlmBtn
+      class="rounded-full"
+      [disabled]="cartData.totalPrice === 0"
+      (click)="onCheckout()"
+    >
+      <ng-icon hlm size="sm" name="lucideShoppingCart" />
+      {{ cartData.totalPrice | currency: 'EUR' : 'symbol-narrow' }}
+    </button>
+  }
   <button hlmBtn variant="outline" class="rounded-full">
     <ng-icon hlm size="sm" name="lucideFlag" />
     PT

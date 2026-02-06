@@ -7,6 +7,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 import { RouteService } from '../../../core/services/route.service';
 import { AppStore } from '../../../core/store/app-store';
+import { AppPages } from '../../../core/enums/app-pages.enum';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,9 @@ import { AppStore } from '../../../core/store/app-store';
 export class Header {
   readonly #store = inject(AppStore);
   readonly #routeService = inject(RouteService);
+
+  currentPage = this.#routeService.currentPage;
+  appPages = AppPages;
 
   cart = this.#store.cart;
 

@@ -10,7 +10,7 @@ import { AppStore } from '../store/app-store';
 export class CartService {
   #store = inject(AppStore);
 
-  updateCart(ticket: Partial<CartTicket>): void {
+  public updateCart(ticket: Partial<CartTicket>): void {
     const event = this.#store.selectedEvent();
     if (!event) {
       return;
@@ -65,5 +65,9 @@ export class CartService {
       totalPrice: updatedTotal,
       totalTickets: updatedTicketAmount,
     });
+  }
+
+  public getSelectedTickets(): CartTicket[] {
+    return this.#store.cart().tickets;
   }
 }
