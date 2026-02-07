@@ -1,0 +1,76 @@
+@if (cart) {
+  @if (isMobile()) {
+    <div class="w-full gap-8 flex flex-col">
+      <div class="flex flex-col gap-4">
+        @for (cartEvent of cart.events; track cartEvent.event.id) {
+          <ng-container
+            *ngTemplateOutlet="cartContent; context: { $implicit: cartEvent }"
+          ></ng-container>
+        }
+      </div>
+      <ng-container *ngTemplateOutlet="cartSummary; context: { cart: cart }"></ng-container>
+    </div>
+  } @else {
+    <section hlmCard class="border-gray-200 w-full">
+      <div hlmCardContent class="flex flex-col gap-4 px-4">
+        @for (cartEvent of cart.events; track cartEvent.event.id) {
+          <ng-container
+            *ngTemplateOutlet="cartContent; context: { $implicit: cartEvent }"
+          ></ng-container>
+        }
+      </div>
+      <div hlmCardFooter class="gap-2 px-4">
+        <ng-container *ngTemplateOutlet="cartSummary; context: { cart: cart }"></ng-container>
+      </div>
+    </section>
+  }
+}
+
+<ng-template #cartContent let-cartEvent>
+  @let event = cartEvent.event;
+
+  <section class="flex flex-col gap-2">
+    <div class="flex gap-2 items-center">
+      <app-cover-image
+        class="w-18 h-18"
+        [altName]="event.name"
+        [coverSrc]="event?.eventTypefilename"
+        [isThumbnail]="true"
+      ></app-cover-image>
+      <div class="flex flex-col gap-1">
+        <a hlmCardTitle class="no-underline hover:underline" [routerLink]="['/events', event.id]">{{
+          event.name
+        }}</a>
+        <time [attr.datetime]="event.eventTime">{{ event.eventTime | eventDate }}</time>
+      </div>
+      <div class="ml-auto self-start">
+        <button hlmBtn class="rounded-full" variant="secondary" size="icon-sm">
+          <ng-icon name="lucideX" hlm hlmAccIcon />
+        </button>
+      </div>
+    </div>
+    @for (ticket of cartEvent.tickets; track ticket.id) {
+      <div class="flex items-center justify-between w-full">
+        <p>{{ ticket.amount }}x {{ ticket.name }}</p>
+        <p>{{ ticket.total | currency: 'EUR' : 'symbol-narrow' }}€</p>
+      </div>
+    }
+  </section>
+</ng-template>
+
+<ng-template #cartSummary let-cart="cart">
+  <div class="flex flex-col w-full gap-2">
+    <div class="flex items-center justify-between w-full">
+      <span>Taxas de serviço</span>
+      <div class="flex items-center gap-1">
+        <ng-icon name="lucideInfo" hlm hlmAccIcon />
+        <span>{{ cart.servicesFee | currency: 'EUR' : 'symbol-narrow' }}</span>
+      </div>
+    </div>
+    <hr class="w-full border-gray-200" />
+    <div class="flex items-center justify-between w-full">
+      <span>Total</span>
+      <span>{{ cart.totalPrice | currency: 'EUR' : 'symbol-narrow' }}</span>
+    </div>
+  </div>
+</ng-template>

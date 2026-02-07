@@ -1,0 +1,30 @@
+@if (event) {
+  <div class="flex flex-col gap-4">
+    <h1 class="text-3xl font-bold">{{ event.name }}</h1>
+
+    <div class="flex items-center gap-10">
+      <div class="flex items-center gap-4">
+        <div class="bg-gray-200 flex items-center justify-center h-12 w-12 rounded-full">
+          <ng-icon hlm size="1.2rem" name="lucideCalendar" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <time class="text-sm font-semibold" [attr.datetime]="event.eventTime">
+            {{ event.eventTime | eventDate }}
+          </time>
+          <p class="text-sm text-muted-foreground">Começa em {{ daysToEvenet() }} dias</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="bg-gray-200 flex items-center justify-center h-12 w-12 rounded-full">
+          <ng-icon hlm size="1.2rem" name="lucideMapPin" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <p class="text-sm font-semibold">
+            {{ place?.placeName }}
+          </p>
+          <p class="text-sm text-muted-foreground">Endereço para o evento</p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

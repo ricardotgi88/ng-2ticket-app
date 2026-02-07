@@ -1,0 +1,6 @@
+<div
+  class="flex items-center justify-center aspect-square max-w-full rounded-xl bg-linear-45 from-red-600 to-red-400 overflow-hidden shadow-md border-1 border-gray-200"
+  [class.p-8]="!isThumbnail"
+>
+  <img [src]="coverSrcOrPlaceholder" alt="{{ altName }}" class="object-cover" />
+</div>

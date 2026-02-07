@@ -1,0 +1,18 @@
+<article
+  class="flex flex-col items-start p-4 cursor-pointer hover:bg-gray-100 rounded-lg gap-2"
+  (click)="onSelect()"
+>
+  <app-cover-image [coverSrc]="event.eventTypefilename" [altName]="event.name" />
+
+  <div class="flex flex-col">
+    <h2 class="font-semibold">{{ event.name }}</h2>
+    <p class="text-muted-foreground">
+      <span class="sr-only">Location:</span>
+      {{ event.places[0].placeName }}
+    </p>
+  </div>
+
+  <time class="text-sm font-semibold" [attr.datetime]="event.eventTime">
+    {{ event.eventTime | eventDate }}
+  </time>
+</article>
