@@ -5,7 +5,7 @@ import { AppStore } from '../store/app-store';
 
 export const hasDataGuard: CanActivateFn = () => {
   const cart = inject(AppStore).cart();
-  if (cart.tickets.length) {
+  if (cart.events.length) {
     return true;
   }
 

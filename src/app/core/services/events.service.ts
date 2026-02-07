@@ -11,6 +11,8 @@ export class EventsService {
   #appStore = inject(AppStore);
   #eventDataService: EventsDataService = inject(EventsDataService);
 
+  events = this.#appStore.events;
+
   public resolveData(): Observable<boolean> {
     if (!this.#appStore.hasEvents()) {
       return this.#eventDataService.getAll().pipe(

@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
   @for (event of events(); track event.id) {
-    <app-event-info-card [event]="event" (selected)="onEventSelected($event)" />
-    <app-event-info-card [event]="event" (selected)="onEventSelected($event)" />
+    <app-event-card [event]="event" (selected)="onEventSelected($event)" />
+    <app-event-card [event]="event" (selected)="onEventSelected($event)" />
   }
 </div>

@@ -6,7 +6,7 @@ import { startWith, pairwise } from 'rxjs';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 
-import { CartTicket } from '../../../core/interfaces/cart-ticket.interface';
+import { CartTicket } from '../../../core/interfaces/cart.interface';
 import { AmountSelector } from '../form/amount-selector/amount-selector';
 
 @Component({
@@ -52,6 +52,7 @@ export class TicketSelectorCard {
 
   #changed(amount: number): void {
     const ticket: Partial<CartTicket> = {
+      name: this.name,
       amount,
       price: this.price,
       total: this.price * amount,

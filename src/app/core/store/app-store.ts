@@ -28,7 +28,7 @@ const initialAppData: AppData = {
   events: [],
   selectedEvent: null,
   ticketTypes: [],
-  cart: { totalPrice: 0, totalTickets: 0, tickets: [] },
+  cart: { events: [], taxes: [], totalPrice: 0, totalTickets: 0, servicesFee: 0 },
 };
 
 const initialAppState: AppState = {

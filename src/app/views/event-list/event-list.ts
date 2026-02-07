@@ -3,19 +3,20 @@ import { Component, inject } from '@angular/core';
 import { Event } from '../../api/models/event.interface';
 import { RouteService } from '../../core/services/route.service';
 import { AppStore } from '../../core/store/app-store';
-import { EventInfoCard } from '../../shared/components/event-info-card/event-info-card';
+import { EventCard } from '../../shared/components/event-card/event-card';
+import { EventsService } from '../../core/services/events.service';
 
 @Component({
   selector: 'app-event-list',
-  imports: [EventInfoCard],
+  imports: [EventCard],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })
 export class EventList {
   readonly #routeService = inject(RouteService);
-  readonly #appStore = inject(AppStore);
+  readonly #eventsService = inject(EventsService);
 
-  public events = this.#appStore.events;
+  public events = this.#eventsService.events;
 
   onEventSelected(event: Event) {
     this.#routeService.goToEventDetails(event);

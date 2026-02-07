@@ -1,4 +1,4 @@
-import { inject, Injectable, untracked } from '@angular/core';
+import { effect, inject, Injectable, untracked } from '@angular/core';
 import { catchError, finalize, map, Observable, of, take, tap } from 'rxjs';
 
 import { Event } from '../../api/models/event.interface';
@@ -6,6 +6,7 @@ import { EventsDataService } from '../../api/services/events.data.service';
 import { AppStore } from '../store/app-store';
 import { PriceMapService } from './price-map.service';
 import { TicketPackService } from './ticket-pack.service';
+import { TicketTypesService } from './ticket-types.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,25 +16,36 @@ export class EventsDetailsService {
   #eventDataService = inject(EventsDataService);
   #priceMapService = inject(PriceMapService);
   #ticketPackService = inject(TicketPackService);
+  #ticketTypesService = inject(TicketTypesService);
 
-  public resolveData(eventId: number): Observable<boolean> {
+  selectedEvent = this.#appStore.selectedEvent;
+
+  constructor() {
+    effect(() => this.monitorData());
+  }
+
+  public resolveData(eventId: number): Observable<Event | undefined> {
     const selectedEvent = this.#appStore.selectedEvent();
 
     if (!selectedEvent) {
       return this.#eventDataService.getById(eventId).pipe(
         tap((event) => this.#appStore.selectEvent(event)),
         take(1),
-        map(() => true),
-        catchError(() => of(false)),
+        catchError(() => of(undefined)),
       );
     }
 
-    return of(true);
+    return of(selectedEvent);
   }
 
   public monitorData(): void {
     this.#monitorPriceMaps();
     this.#monitorTicketPacks();
+    this.#monitorTicketType();
+  }
+
+  #monitorTicketType(): void {
+    this.#ticketTypesService.enrichData();
   }
 
   #monitorPriceMaps(): void {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -10,6 +10,12 @@ import { AccordionInput } from '../../shared/components/form/accordion-input/acc
 import { CheckboxInput } from '../../shared/components/form/checkbox-input/checkbox-input';
 import { RadioInput } from '../../shared/components/form/radio-input/radio-input';
 import { SelectInput } from '../../shared/components/form/select-input/select-input';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideInfo, lucideX } from '@ng-icons/lucide';
+import { CoverImage } from '../../shared/components/cover-image/cover-image';
+import { CartDetails } from '../../shared/components/cart-details/cart-details';
+import { CartService } from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -23,11 +29,15 @@ import { SelectInput } from '../../shared/components/form/select-input/select-in
     CheckboxInput,
     RadioInput,
     SelectInput,
+    HlmCardImports,
+    CartDetails,
   ],
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
 })
 export class Checkout {
+  #cartService = inject(CartService);
+
   readonly radioCardClass = hlm(
     'relative block space-x-0',
     // base card styles
@@ -37,6 +47,8 @@ export class Checkout {
     // target the checked state properly
     '[&:has([data-checked=true])]:border-primary [&:has([data-checked=true])]:border-1',
   );
+
+  cart = this.#cartService.cart;
 
   paymentTypes = [
     { value: 'mbWay', name: 'MbWay' },

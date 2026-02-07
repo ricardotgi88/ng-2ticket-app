@@ -33,6 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'checkout',
+        title: '2Ticket - Checkout',
         canActivate: [hasDataGuard],
         loadComponent: () => import('./views/checkout/checkout').then((m) => m.Checkout),
       },

@@ -1,37 +1,33 @@
-<div class="flex flex-col gap-4">
-  @if (!isLoading()) {
-    @if (priceMap; as priceMap) {
-      @if (priceMap?.active) {
-        @for (priceMapItem of priceMap.mapping; track priceMapItem.id) {
-          @if (priceMapItem.ticketType.active) {
-            <app-ticket-selector-card
-              [name]="priceMap.name"
-              [selected]="
-                selectedTicketsMap.get(ticketTypeEnum.priceMap + '-' + priceMapItem.id) || 0
-              "
-              [price]="priceMapItem.price"
-              (changed)="onSelectionChange(priceMapItem.id, ticketTypeEnum.priceMap, $event)"
-            />
-          }
+<div class="flex flex-col gap-2">
+  @if (priceMap; as priceMap) {
+    @if (priceMap?.active) {
+      @for (priceMapItem of priceMap.mapping; track priceMapItem.id) {
+        @if (priceMapItem?.ticketType?.active) {
+          <app-ticket-selector-card
+            [name]="priceMap.name"
+            [selected]="
+              selectedTicketsMap.get(ticketTypeEnum.priceMap + '-' + priceMapItem.id) || 0
+            "
+            [price]="priceMapItem.price"
+            (changed)="onSelectionChange(priceMapItem.id, ticketTypeEnum.priceMap, $event)"
+          />
         }
       }
     }
-    @if (ticketPacks?.length) {
-      packs
-      @for (ticketPack of ticketPacks; track ticketPack.id) {
-        @if (ticketPack.active && ticketPack.ticketType.active) {
-          <app-ticket-selector-card
-            [name]="ticketPack.name"
-            [price]="ticketPack.price"
-            [description]="ticketPack.description"
-            [selected]="
-              selectedTicketsMap.get(ticketTypeEnum.ticketPack + '-' + ticketPack.id) || 0
-            "
-            [maxSelection]="ticketPack.uses"
-            (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
-            (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
-          />
-        }
+  }
+  @if (ticketPacks?.length) {
+    packs
+    @for (ticketPack of ticketPacks; track ticketPack.id) {
+      @if (ticketPack?.active && ticketPack?.ticketType?.active) {
+        <app-ticket-selector-card
+          [name]="ticketPack.name"
+          [price]="ticketPack.price"
+          [description]="ticketPack.description"
+          [selected]="selectedTicketsMap.get(ticketTypeEnum.ticketPack + '-' + ticketPack.id) || 0"
+          [maxSelection]="ticketPack.uses"
+          (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
+          (changed)="onSelectionChange(ticketPack.id, ticketTypeEnum.ticketPack, $event)"
+        />
       }
     }
   }

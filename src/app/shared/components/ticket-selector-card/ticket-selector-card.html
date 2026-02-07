@@ -2,11 +2,11 @@
   <div hlmCardHeader class="px-4">
     <div hlmCardTitle class="flex items-center gap-2">
       <h3>{{ name }}</h3>
-      @if (remainingTickets > 0 && remainingTickets < 50) {
-        <span hlmBadge class="dark:text-bg-red-300 bg-red-50 text-red-700 dark:bg-red-950"
-          >A esgotar</span
-        >
-      }
+      <!-- @if (remainingTickets > 0 && remainingTickets < 50) { -->
+      <span hlmBadge class="text-white rounded-full pl-5 bg-linear-90 from-orange-600 to-orange-400"
+        >A esgotar</span
+      >
+      <!-- } -->
     </div>
     @if (description) {
       <p hlmCardDescription>

@@ -85,13 +85,14 @@
                 Tem um código de desconto?
               </p>
               <div accordionContent class="flex flex-col pt-4 gap-2">
-                <div class="flex gap-4">
+                <div class="flex items-center gap-4">
                   <div hlmField>
                     <input hlmInput id="checkout-onlinecode" formControlName="onlinecode" />
                   </div>
                   <button
                     hlmBtn
                     class="rounded-full"
+                    size="lg"
                     [disabled]="!checkoutForm.controls['onlinecode'].value"
                   >
                     Aplicar
@@ -117,5 +118,7 @@
       </div>
     </form>
   </div>
-  <div class="cart-details basis-full md:basis-1/2 order-first">cart details</div>
+  <div class="cart-details basis-full md:basis-1/2 order-first relative">
+    <app-cart-details class="sticky top-17" [cart]="cart()" />
+  </div>
 </div>

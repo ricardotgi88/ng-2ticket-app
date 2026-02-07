@@ -1,50 +1,55 @@
 @if (selectedEvent(); as selectedEventwithValue) {
-  <div class="flex gap-4 wrap md:flex-row flex-col">
+  <div class="flex gap-4 md:gap-12 wrap md:flex-row flex-col">
     <app-artist-bio
       class="basis-full md:basis-1/3"
       [event]="selectedEventwithValue"
     ></app-artist-bio>
 
     @for (place of selectedEventwithValue.places; track place.id) {
-      <div class="flex flex-col gap-4 basis-full md:basis-2/3">
-        <h1 class="text-3xl font-bold">{{ selectedEventwithValue.name }}</h1>
+      <div class="flex flex-col gap-8 basis-full md:basis-2/3">
+        <app-event-details-header
+          [place]="place"
+          [event]="selectedEventwithValue"
+        ></app-event-details-header>
 
-        <div class="flex">
-          <div class="flex flex-col gap-1 mr-8">
-            <p class="text-lg font-semibold">
-              <ng-icon hlm size="sm" name="lucideCalendar" />
-              {{ selectedEventwithValue.eventTime | date: 'longDate' }}
-            </p>
-            <p>Começa em 4 dias</p>
-          </div>
-          <div class="flex flex-col gap-1">
-            <p class="text-lg font-semibold">
-              <ng-icon hlm size="sm" name="lucideMapPin" />
-              {{ place.placeName }}
-            </p>
-          </div>
-        </div>
+        <section class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Bilhetes</h2>
+          <app-ticket-list
+            [priceMap]="place.priceMap"
+            [ticketPacks]="place.ticketPacks"
+            [selectedTicketsMap]="selectedTicketsMap"
+            (selectionChange)="onTicketSelectionChange($event)"
+          />
+        </section>
 
-        <h2 class="text-xl font-bold">Bilhetes</h2>
-        <app-ticket-list [priceMap]="place.priceMap" [ticketPacks]="place.ticketPacks" />
-        <h2 class="text-xl font-bold">Sobre</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis odio massa. Nulla
-          lobortis ac est a sollicitudin. Pellentesque condimentum, ex non posuere congue, eros diam
-          pretium ante, sed viverra lacus arcu eu velit. Nunc pellentesque posuere aliquet.
-        </p>
-        <button hlmBtn variant="link" class="has-[>ng-icon]:px-0 mr-auto">
-          <span class="font-semibold"> Ler Mais </span>
-          <ng-icon hlm size="sm" name="lucideChevronDown" />
-        </button>
-        <h2 class="text-xl font-bold">Localização</h2>
-        <p class="text-sm text-gray-500">
-          {{ selectedEventwithValue.places![0]?.placeName }}
-        </p>
-        <div class="bg-[url('assets/img/maps.png')] bg-cover bg-center" style="height: 300px"></div>
+        <section class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Sobre</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis odio massa.
+            Nulla lobortis ac est a sollicitudin. Pellentesque condimentum, ex non posuere congue,
+            eros diam pretium ante, sed viverra lacus arcu eu velit. Nunc pellentesque posuere
+            aliquet.
+          </p>
+          <button hlmBtn variant="link" class="has-[>ng-icon]:px-0 mr-auto">
+            <span class="font-semibold"> Ler Mais </span>
+            <ng-icon hlm size="sm" name="lucideChevronDown" />
+          </button>
+        </section>
 
-        <h2 class="text-xl font-bold">Promotor</h2>
-        <p class="text-sm text-gray-500">Feira de São Mateus</p>
+        <section class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Localização</h2>
+          <p class="text-sm text-gray-500">
+            {{ selectedEventwithValue.places![0]?.placeName }}
+          </p>
+          <div
+            class="bg-[url('assets/img/maps.png')] bg-cover bg-center"
+            style="height: 300px"
+          ></div>
+        </section>
+        <section class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Promotor</h2>
+          <p class="text-sm text-gray-500">Feira de São Mateus</p>
+        </section>
       </div>
     }
   </div>

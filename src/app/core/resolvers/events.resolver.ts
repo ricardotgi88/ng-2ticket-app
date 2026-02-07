@@ -3,10 +3,12 @@ import { Resolve, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 
 import { EventsService } from '../services/events.service';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({ providedIn: 'root' })
 export class EventsPreloadResolver implements Resolve<boolean> {
   #router: Router = inject(Router);
+  #titleService: Title = inject(Title);
   #eventsService: EventsService = inject(EventsService);
 
   resolve(): Observable<boolean> {
@@ -15,6 +17,8 @@ export class EventsPreloadResolver implements Resolve<boolean> {
         if (!result) {
           this.#router.navigate(['/error']);
         }
+
+        this.#titleService.setTitle('2Ticket - Eventos');
 
         return result;
       }),
