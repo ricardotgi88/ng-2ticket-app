@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 
 import { EventsDetailsService } from '../services/events-details.service';
-import { Title } from '@angular/platform-browser';
 
 @Injectable({ providedIn: 'root' })
 export class EventDetailsPreloadResolver implements Resolve<boolean> {

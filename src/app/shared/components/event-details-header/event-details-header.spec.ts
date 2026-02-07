@@ -8,9 +8,8 @@ describe('EventDetailsHeader', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventDetailsHeader]
-    })
-    .compileComponents();
+      imports: [EventDetailsHeader],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EventDetailsHeader);
     component = fixture.componentInstance;

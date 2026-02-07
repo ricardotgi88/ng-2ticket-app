@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 
 import { Event } from '../../api/models/event.interface';
-import { RouteService } from '../../core/services/route.service';
-import { AppStore } from '../../core/store/app-store';
-import { EventCard } from '../../shared/components/event-card/event-card';
 import { EventsService } from '../../core/services/events.service';
+import { RouteService } from '../../core/services/route.service';
+import { EventCard } from '../../shared/components/event-card/event-card';
 
 @Component({
   selector: 'app-event-list',

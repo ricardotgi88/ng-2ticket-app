@@ -8,9 +8,8 @@ describe('CoverImage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CoverImage]
-    })
-    .compileComponents();
+      imports: [CoverImage],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoverImage);
     component = fixture.componentInstance;

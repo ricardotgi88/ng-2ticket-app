@@ -4,13 +4,12 @@ import { lucideCalendar, lucideChevronDown, lucideMapPin } from '@ng-icons/lucid
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
-import { AppStore } from '../../core/store/app-store';
-import { ArtistBio } from '../../shared/components/artist-bio/artist-bio';
-import { TicketList } from '../../shared/components/ticket-list/ticket-list';
-import { EventDetailsHeader } from '../../shared/components/event-details-header/event-details-header';
-import { CartService } from '../../core/services/cart.service';
 import { CartTicket } from '../../core/interfaces/cart.interface';
+import { CartService } from '../../core/services/cart.service';
 import { EventsDetailsService } from '../../core/services/events-details.service';
+import { ArtistBio } from '../../shared/components/artist-bio/artist-bio';
+import { EventDetailsHeader } from '../../shared/components/event-details-header/event-details-header';
+import { TicketList } from '../../shared/components/ticket-list/ticket-list';
 
 @Component({
   selector: 'app-event-details',

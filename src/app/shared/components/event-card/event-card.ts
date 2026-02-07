@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Event } from '../../../api/models/event.interface';
-import { CoverImage } from '../cover-image/cover-image';
 import { EventDatePipe } from '../../../core/pipes/event-date-pipe';
+import { CoverImage } from '../cover-image/cover-image';
 
 @Component({
   selector: 'app-event-card',

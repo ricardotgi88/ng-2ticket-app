@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
 import {
   ApplicationConfig,
   inject,
@@ -11,9 +13,6 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { EventsDetailsService } from './core/services/events-details.service';
-
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt);
 

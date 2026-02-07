@@ -1,23 +1,17 @@
-import {
-  Component,
-  DestroyRef,
-  Input,
-  PLATFORM_ID,
-  inject,
-  signal,
-} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { fromEvent, startWith, map } from 'rxjs';
+import { CurrencyPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, DestroyRef, inject, Input, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CoverImage } from '../cover-image/cover-image';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo, lucideX } from '@ng-icons/lucide';
-import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { fromEvent, map, startWith } from 'rxjs';
+
 import { Cart } from '../../../core/interfaces/cart.interface';
 import { EventDatePipe } from '../../../core/pipes/event-date-pipe';
-import { CurrencyPipe, NgTemplateOutlet } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { CoverImage } from '../cover-image/cover-image';
 
 @Component({
   selector: 'app-cart-details',

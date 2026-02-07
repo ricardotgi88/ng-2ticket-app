@@ -8,9 +8,8 @@ describe('AccordionInput', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccordionInput]
-    })
-    .compileComponents();
+      imports: [AccordionInput],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AccordionInput);
     component = fixture.componentInstance;

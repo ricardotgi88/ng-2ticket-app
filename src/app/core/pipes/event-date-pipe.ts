@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'eventDate',
@@ -7,7 +7,9 @@ import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 export class EventDatePipe implements PipeTransform {
   readonly #datePipe: DatePipe;
 
-  constructor(@Inject(LOCALE_ID) localeId: string) {
+  constructor() {
+    const localeId = inject(LOCALE_ID);
+
     this.#datePipe = new DatePipe(localeId);
   }
 

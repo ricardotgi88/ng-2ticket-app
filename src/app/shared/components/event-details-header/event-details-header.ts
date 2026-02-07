@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideMapPin } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { Event } from '../../../api/models/event.interface';
 import { Place } from '../../../api/models/place.interface';
 import { EventDatePipe } from '../../../core/pipes/event-date-pipe';
@@ -13,7 +14,7 @@ import { EventDatePipe } from '../../../core/pipes/event-date-pipe';
   templateUrl: './event-details-header.html',
   styleUrl: './event-details-header.css',
 })
-export class EventDetailsHeader {
+export class EventDetailsHeader implements OnChanges {
   @Input() event: Event | null = null;
   @Input() place: Place | null = null;
 

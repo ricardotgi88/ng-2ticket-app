@@ -48,8 +48,9 @@ export class SelectInput implements ControlValueAccessor {
 
   onValueChange(value: string | (string | null)[] | null | undefined): void {
     if (this.isDisabled) return;
-    const nextValue =
-      Array.isArray(value) ? (value.find((item) => item != null) ?? null) : (value ?? null);
+    const nextValue = Array.isArray(value)
+      ? (value.find((item) => item != null) ?? null)
+      : (value ?? null);
     this.value = nextValue;
     this.onChange(nextValue);
     this.onTouched();

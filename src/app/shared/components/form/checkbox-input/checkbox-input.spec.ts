@@ -8,9 +8,8 @@ describe('CheckboxInput', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CheckboxInput]
-    })
-    .compileComponents();
+      imports: [CheckboxInput],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CheckboxInput);
     component = fixture.componentInstance;

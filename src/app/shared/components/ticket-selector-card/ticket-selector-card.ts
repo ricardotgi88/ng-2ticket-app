@@ -1,10 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DestroyRef, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, DestroyRef, EventEmitter, inject, Input, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { startWith, pairwise } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmCardImports } from '@spartan-ng/helm/card';
+import { pairwise, startWith } from 'rxjs';
 
 import { CartTicket } from '../../../core/interfaces/cart.interface';
 import { AmountSelector } from '../form/amount-selector/amount-selector';

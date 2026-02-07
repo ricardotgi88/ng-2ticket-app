@@ -8,9 +8,8 @@ describe('AmountSelector', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AmountSelector]
-    })
-    .compileComponents();
+      imports: [AmountSelector],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AmountSelector);
     component = fixture.componentInstance;

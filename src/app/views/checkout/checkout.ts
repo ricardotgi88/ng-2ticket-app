@@ -1,21 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { hlm } from '@spartan-ng/helm/utils';
 
+import { CartService } from '../../core/services/cart.service';
+import { CartDetails } from '../../shared/components/cart-details/cart-details';
 import { AccordionInput } from '../../shared/components/form/accordion-input/accordion-input';
 import { CheckboxInput } from '../../shared/components/form/checkbox-input/checkbox-input';
 import { RadioInput } from '../../shared/components/form/radio-input/radio-input';
 import { SelectInput } from '../../shared/components/form/select-input/select-input';
-import { HlmCardImports } from '@spartan-ng/helm/card';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideInfo, lucideX } from '@ng-icons/lucide';
-import { CoverImage } from '../../shared/components/cover-image/cover-image';
-import { CartDetails } from '../../shared/components/cart-details/cart-details';
-import { CartService } from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
